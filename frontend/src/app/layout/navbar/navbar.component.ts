@@ -17,6 +17,7 @@ export class NavbarComponent {
   textoBusqueda: string = '';
 
   mostrarLoginModal: boolean = false;
+  mostrarCarritoModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
 
   get totalItemsCart(): number {
@@ -40,9 +41,13 @@ export class NavbarComponent {
     this.mostrarLoginModal = false;
   }
 
-  abrirCarrito(): void {
-    this.router.navigate(['/carrito']);
+  toggleCarritoModal(): void {
+    this.mostrarCarritoModal = !this.mostrarCarritoModal;
     this.cerrarMenu();
+  }
+
+  cerrarCarritoModal(): void {
+    this.mostrarCarritoModal = false;
   }
 
   buscar(event: Event): void {

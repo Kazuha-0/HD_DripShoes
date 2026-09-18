@@ -31,16 +31,53 @@
   </ul>
 
   <!-- Ícono del Carrito con Contador -->
-  <button class="cart-btn" aria-label="Carrito de compras" (click)="abrirCarrito()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="9" cy="21" r="1"></circle>
-      <circle cx="20" cy="21" r="1"></circle>
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-    </svg>
-    @if (totalItemsCart > 0) {
-      <span class="cart-badge">{{ totalItemsCart }}</span>
-    }
-  </button>
+  <button class="cart-btn" aria-label="Carrito de compras" (click)="toggleCarritoModal()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+  @if (totalItemsCart > 0) {
+    <span class="cart-badge">{{ totalItemsCart }}</span>
+  }
+</button>
+
+<!-- PANEL LATERAL DEL CARRITO (DESDE LA DERECHA) -->
+@if (mostrarCarritoModal) {
+  <div class="cart-drawer-overlay" (click)="cerrarCarritoModal()">
+    <div class="cart-drawer-panel" (click)="$event.stopPropagation()">
+      
+      <!-- Encabezado del Panel -->
+      <div class="cart-drawer-header">
+        <h3>Tu Carrito</h3>
+        <button class="cart-drawer-close" (click)="cerrarCarritoModal()">&times;</button>
+      </div>
+
+      <!-- Contenido del Carrito -->
+      <div class="cart-drawer-body">
+        @if (totalItemsCart === 0) {
+          <div class="cart-empty-state">
+            <p>Aún no has agregado artículos a tu compra.</p>
+          </div>
+        } @else {
+          <!-- Lista de productos si tiene elementos -->
+          <div class="cart-items-list">
+            <!-- Aquí mapeas los ítems de tu CartService -->
+            <p style="font-weight: bold;">Tienes {{ totalItemsCart }} producto(s) en tu carrito.</p>
+          </div>
+        }
+      </div>
+
+      <!-- Pie del Panel -->
+      <div class="cart-drawer-footer">
+        <button class="btn-close-continue" (click)="cerrarCarritoModal()">
+          &lt; Cerrar y continuar comprando
+        </button>
+      </div>
+
+    </div>
+  </div>
+}
 
   <!-- Botón de Usuario -->
   <button class="user-btn" aria-label="Cuenta de usuario" (click)="abrirLoginModal()">
