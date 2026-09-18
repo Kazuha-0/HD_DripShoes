@@ -75,3 +75,77 @@
     transform: translateY(0);
   }
 }
+
+.tarjeta-producto {
+  background: #fff;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+
+.tarjeta-producto:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  border-color: #be95a1;
+}
+
+.producto-imagen {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  background: #fdfdfd;
+  border-radius: 12px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.producto-imagen img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.tarjeta-producto:hover .producto-imagen img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+}
+
+.producto-marca {
+  font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
+  color: #94a3b8;
+  font-size: 11px;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.producto-nombre {
+  font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
+  font-size: 15px;
+  margin: 10px 0;
+  min-height: 42px;
+  color: #1e293b;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+}
+
+.producto-precio {
+  font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 12px 0 0 0;
+  color: #e50046;
+  letter-spacing: -0.3px;
+}
