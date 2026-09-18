@@ -13,7 +13,8 @@ interface CategoryInfo {
   selector: 'app-category-detail',
   standalone: true,
   imports: [CommonModule], // <-- 2. Añadirlo a la lista de imports
-  templateUrl: './category-detail.component.html'
+  templateUrl: './category-detail.component.html',
+  styleUrls: ['./category-detail.component.css']
 })
 export class CategoryDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -21,7 +22,16 @@ export class CategoryDetailComponent implements OnInit {
 
   categoria: string = '';
   productos: Product[] = [];
+  productoSeleccionado: any = null;
 
+  abrirVistaRapida(producto: any): void {
+    this.productoSeleccionado = producto;
+  }
+
+  cerrarModal(): void {
+    this.productoSeleccionado = null;
+  }
+  
   infoCategorias: Record<string, CategoryInfo> = {
     caballeros: {
       titulo: 'Calzado para Caballeros',
