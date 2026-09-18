@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +10,18 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  private router = inject(Router);
+  private cartService = inject(CartService);
+
   menuAbierto: boolean = false;
   textoBusqueda: string = '';
 
   mostrarLoginModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
 
-  constructor(private router: Router) {}
+  get totalItemsCart(): number {
+    return this.cartService.TotalItems;
+  }
 
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
@@ -32,6 +38,11 @@ export class NavbarComponent {
 
   cerrarLoginModal(): void {
     this.mostrarLoginModal = false;
+  }
+
+  abrirCarrito(): void {
+    this.router.navigate(['/carrito']);
+    this.cerrarMenu();
   }
 
   buscar(event: Event): void {
