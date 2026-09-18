@@ -80,8 +80,11 @@
 
     <p style="font-size: 0.75rem; color: #000; font-weight: bold;">*Campo obligatorio.</p>
 
-    <button type="button"
-      style="width: 100%; padding: 18px; background: #1a0b0c; color: white; border: none; font-weight: bold; letter-spacing: 2px; cursor: pointer; margin-top: 10px;">ENVIAR</button>
+
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+      <button type="button" (click)="validarFormulario()" style="flex: 2; padding: 18px; background: #1a0b0c; color: white; border: none; font-weight: bold; letter-spacing: 2px; cursor: pointer;">ENVIAR</button>
+      <button type="button" (click)="limpiarFormulario()" style="flex: 1; padding: 18px; background: #6c757d; color: white; border: none; font-weight: bold; letter-spacing: 1px; cursor: pointer;">LIMPIAR</button>
+    </div>
   </form>
 
 </div>
