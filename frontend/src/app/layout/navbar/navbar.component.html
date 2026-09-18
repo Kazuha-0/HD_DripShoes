@@ -4,7 +4,7 @@
     <img src="assets/logo Drip Shoes.png" alt="Drip Shoes Logo" routerLink="/" (click)="cerrarMenu()">
   </div>
 
-  <!-- Barra de Búsqueda Redondeada (Estilo Imagen) -->
+  <!-- Barra de Búsqueda -->
   <div class="navbar-search">
     <input 
       type="text" 
@@ -20,19 +20,28 @@
     </button>
   </div>
 
-  <!-- Botón Hamburguesa para móviles -->
-  <button class="hamburger-btn" (click)="toggleMenu()" [class.open]="menuAbierto" aria-label="Abrir menú">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+  <!-- Enlaces y Botón de Usuario -->
+  <div class="navbar-right">
+    <ul class="nav-links" [class.active]="menuAbierto">
+      <li><a routerLink="/" fragment="inicio" (click)="cerrarMenu()">INICIO</a></li>
+      <li><a routerLink="/" fragment="catalogo" (click)="cerrarMenu()">CATÁLOGO</a></li>
+      <li><a routerLink="/" fragment="popular" (click)="cerrarMenu()">POPULAR</a></li>
+      <li><a routerLink="/nosotros" (click)="cerrarMenu()">NOSOTROS</a></li>
+      <li><a routerLink="/contacto" (click)="cerrarMenu()">CONTÁCTANOS</a></li>
+    </ul>
 
-  <!-- Lista de Enlaces -->
-  <ul class="nav-links" [class.active]="menuAbierto">
-    <li><a routerLink="/" fragment="inicio" (click)="cerrarMenu()">INICIO</a></li>
-    <li><a routerLink="/" fragment="catalogo" (click)="cerrarMenu()">CATÁLOGO</a></li>
-    <li><a routerLink="/" fragment="popular" (click)="cerrarMenu()">POPULAR</a></li>
-    <li><a routerLink="/nosotros" (click)="cerrarMenu()">NOSOTROS</a></li>
-    <li><a routerLink="/contacto" (click)="cerrarMenu()">CONTÁCTANOS</a></li>
-  </ul>
+    <!-- Botón de Usuario (Perfil/Login) -->
+    <a routerLink="/login" class="user-btn" aria-label="Cuenta de usuario" (click)="cerrarMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+    </a>
+
+    <!-- Botón Hamburguesa Móvil -->
+    <button class="hamburger-btn" (click)="toggleMenu()" [class.open]="menuAbierto" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </nav>

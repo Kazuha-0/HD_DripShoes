@@ -177,3 +177,29 @@
     margin: 10px 0 0 0;
   }
 }
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.user-btn:hover {
+  color: #e50046;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
