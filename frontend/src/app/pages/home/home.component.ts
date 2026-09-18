@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, inject, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  inject,
+  HostListener,
+} from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +14,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterLink, CommonModule], // <-- 2. Añádelo a los imports
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private productService = inject(ProductService);
@@ -20,15 +26,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     'assets/img_inicio/slide1.jpg',
     'assets/img_inicio/slide2.jpg',
     'assets/img_inicio/slide3.jpg',
-    'assets/img_inicio/slide4.jpg'
+    'assets/img_inicio/slide4.jpg',
   ];
   currentSlide = 0;
   slideInterval: any;
 
   ngOnInit() {
     this.productService.getProductos().subscribe({
-      next: (data) => this.productos = data,
-      error: (err) => console.error('Error al cargar BD:', err)
+      next: (data) => (this.productos = data),
+      error: (err) => console.error('Error al cargar BD:', err),
     });
 
     this.slideInterval = setInterval(() => {
@@ -51,5 +57,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Función para volver al inicio suavemente
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  comprar(producto: any): void {
+    // Aquí llamas a tu servicio del carrito, por ejemplo:
+    // this.cartService.agregar(producto);
+    console.log('Comprar:', producto);
   }
 }
