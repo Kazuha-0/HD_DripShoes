@@ -94,6 +94,10 @@
 
         <!-- Precio formateado con decimales premium -->
         <p class="producto-precio">S/ {{ producto.precio | number:'1.2-2' }}</p>
+
+        <button type="button" class="btn-comprar" (click)="comprar(producto); $event.stopPropagation()">
+          Comprar
+        </button>
       </div>
       }
 

@@ -149,3 +149,30 @@
   color: #e50046;
   letter-spacing: -0.3px;
 }
+
+.btn-comprar {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #791636;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-comprar:hover {
+  background: #b48895;
+  box-shadow: 0 8px 18px rgba(229, 0, 70, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-comprar:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
