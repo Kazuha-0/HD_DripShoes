@@ -14,31 +14,31 @@
   <!-- Cuadrícula de 4 Columnas (Estilo Bata Referencial) -->
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
     @for (item of productos; track item.id) {
-      <div style="background: #fff; padding: 15px; text-align: left; border: 1px solid #eaeaea; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between;">
+      <div style="background: #fff; padding: 20px; text-align: left; border: 1px solid #eaeaea; border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
 
         <!-- Contenedor Imagen -->
-        <div style="width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; background-color: #fafafa; margin-bottom: 15px; overflow: hidden;">
-          <img [src]="item.imagen" [alt]="item.nombre" style="max-width: 90%; max-height: 90%; object-fit: contain;">
+        <div style="width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; background-color: #fafafa; margin-bottom: 15px; border-radius: 14px; overflow: hidden;">
+          <img [src]="item.imagen" [alt]="item.nombre" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); transition: transform 0.3s ease;">
         </div>
 
         <!-- Detalles de producto -->
         <div>
-          <span style="font-size: 11px; text-transform: uppercase; color: #888; font-weight: bold; letter-spacing: 1px;">
+          <span style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 1.5px;">
             {{ item.marca }}
           </span>
-          <h3 style="font-size: 14px; margin: 6px 0; color: #222; font-weight: 500; min-height: 38px;">
+          <h3 style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; font-size: 15px; margin: 6px 0; color: #1e293b; font-weight: 600; min-height: 38px; line-height: 1.4;">
             {{ item.nombre }}
           </h3>
-          <p style="font-size: 12px; color: #777; margin: 0 0 10px 0; min-height: 34px; line-height: 1.4;">
+          <p style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; font-size: 12px; color: #64748b; margin: 0 0 12px 0; min-height: 34px; line-height: 1.4;">
             {{ item.descripcion }}
           </p>
         </div>
 
         <div>
-          <p style="font-size: 17px; font-weight: bold; color: #111; margin: 5px 0 15px 0;">
+          <p style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; font-size: 18px; font-weight: 700; color: #6b092b; margin: 5px 0 15px 0; letter-spacing: -0.3px;">
             S/ {{ item.precio | number:'1.2-2' }}
           </p>
-          <button style="width: 100%; padding: 12px; background: #000; color: #fff; border: none; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">
+          <button style="width: 100%; padding: 12px; background-color: #6b092b; color: #ffffff; border: none; border-radius: 25px; font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; transition: background-color 0.3s ease, transform 0.2s ease;">
             Ver Producto
           </button>
         </div>
