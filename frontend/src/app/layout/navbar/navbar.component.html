@@ -30,12 +30,12 @@
       <li><a routerLink="/contacto" (click)="cerrarMenu()">CONTÁCTANOS</a></li>
     </ul>
 
-    <!-- Botón de Usuario (Perfil/Login) -->
-    <a routerLink="/login" class="user-btn" aria-label="Cuenta de usuario" (click)="cerrarMenu()">
+    <!-- Botón de Usuario que abre el Modal -->
+    <button class="user-btn" aria-label="Cuenta de usuario" (click)="abrirLoginModal()">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
       </svg>
-    </a>
+    </button>
 
     <!-- Botón Hamburguesa Móvil -->
     <button class="hamburger-btn" (click)="toggleMenu()" [class.open]="menuAbierto" aria-label="Abrir menú">
@@ -45,3 +45,59 @@
     </button>
   </div>
 </nav>
+
+<!-- MODAL DE INICIO DE SESIÓN / REGISTRO -->
+@if (mostrarLoginModal) {
+  <div class="auth-modal-overlay" (click)="cerrarLoginModal()">
+    <div class="auth-modal-card" (click)="$event.stopPropagation()">
+      <button class="auth-modal-close" (click)="cerrarLoginModal()">&times;</button>
+
+      <h2 class="auth-title">¡Bienvenido a Drip Shoes!</h2>
+      <p class="auth-subtitle">Inicia sesión para comprar</p>
+
+      <!-- Pestañas Selectoras (Iniciar Sesión / Registro) -->
+      <div class="auth-tabs">
+        <button [class.active]="modoAuth === 'login'" (click)="modoAuth = 'login'">Iniciar sesión</button>
+        <button [class.active]="modoAuth === 'registro'" (click)="modoAuth = 'registro'">Registro</button>
+      </div>
+
+      <!-- Formulario -->
+      <form class="auth-form" (submit)="$event.preventDefault()">
+        <div class="input-group">
+          <span class="input-icon">✉</span>
+          <input type="email" placeholder="Correo electrónico" required>
+        </div>
+
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input type="password" placeholder="Contraseña" required>
+          <span class="eye-icon">👁</span>
+        </div>
+
+        <div class="forgot-link-container">
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn-primary-auth">
+          {{ modoAuth === 'login' ? 'Iniciar sesión' : 'Crear cuenta' }}
+        </button>
+
+        <!-- Botones Sociales -->
+        <button type="button" class="btn-social google">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18">
+          Iniciar Sesión con Google
+        </button>
+
+        <button type="button" class="btn-social facebook">
+          <svg width="18" height="18" fill="#1877F2" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Iniciar Sesión con Facebook
+        </button>
+      </form>
+
+      <div class="auth-footer-link">
+        <p>¿Eres nuevo en Drip Shoes?</p>
+        <a (click)="modoAuth = 'registro'" class="create-account-link">Crea tu cuenta</a>
+      </div>
+    </div>
+  </div>
+}

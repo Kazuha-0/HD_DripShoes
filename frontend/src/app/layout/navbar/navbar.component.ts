@@ -12,6 +12,9 @@ export class NavbarComponent {
   menuAbierto: boolean = false;
   textoBusqueda: string = '';
 
+  mostrarLoginModal: boolean = false;
+  modoAuth: 'login' | 'registro' = 'login';
+
   constructor(private router: Router) {}
 
   toggleMenu(): void {
@@ -20,6 +23,15 @@ export class NavbarComponent {
 
   cerrarMenu(): void {
     this.menuAbierto = false;
+  }
+
+  abrirLoginModal(): void {
+    this.mostrarLoginModal = true;
+    this.cerrarMenu();
+  }
+
+  cerrarLoginModal(): void {
+    this.mostrarLoginModal = false;
   }
 
   buscar(event: Event): void {
