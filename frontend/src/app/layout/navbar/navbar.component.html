@@ -99,16 +99,23 @@
   <div class="auth-modal-card" (click)="$event.stopPropagation()">
     <button class="auth-modal-close" (click)="cerrarLoginModal()">&times;</button>
 
+    <!-- Título según el modo -->
+    @if (modoAuth === 'login') {
     <h2 class="auth-title">¡Bienvenido a Drip Shoes!</h2>
     <p class="auth-subtitle">Inicia sesión para comprar</p>
+    } @else {
+    <h2 class="auth-title">Crea tu cuenta</h2>
+    <p class="auth-subtitle">Completa tus datos para registrarte</p>
+    }
 
-    <!-- Pestañas Selectoras (Iniciar Sesión / Registro) -->
+    <!-- Pestañas -->
     <div class="auth-tabs">
       <button [class.active]="modoAuth === 'login'" (click)="modoAuth = 'login'">Iniciar sesión</button>
       <button [class.active]="modoAuth === 'registro'" (click)="modoAuth = 'registro'">Registro</button>
     </div>
 
-    <!-- Formulario -->
+    @if (modoAuth === 'login') {
+    <!-- FORMULARIO DE LOGIN -->
     <form class="auth-form" (submit)="$event.preventDefault()">
       <div class="input-group">
         <span class="input-icon">✉</span>
@@ -125,11 +132,8 @@
         <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
       </div>
 
-      <button type="submit" class="btn-primary-auth">
-        {{ modoAuth === 'login' ? 'Iniciar sesión' : 'Crear cuenta' }}
-      </button>
+      <button type="submit" class="btn-primary-auth">Iniciar sesión</button>
 
-      <!-- Botones Sociales -->
       <button type="button" class="btn-social google">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18">
         Iniciar Sesión con Google
@@ -148,6 +152,47 @@
       <p>¿Eres nuevo en Drip Shoes?</p>
       <a (click)="modoAuth = 'registro'" class="create-account-link">Crea tu cuenta</a>
     </div>
+
+    } @else {
+    <!-- FORMULARIO DE REGISTRO -->
+    <form class="auth-form" (ngSubmit)="registrarse()">
+      <div class="input-row">
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="registro.nombre" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input type="text" name="apellido" placeholder="Apellido" [(ngModel)]="registro.apellido" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">📱</span>
+        <input type="tel" name="celular" placeholder="Número de celular" [(ngModel)]="registro.celular"
+          pattern="[0-9]{9}" maxlength="9" required>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">✉</span>
+        <input type="email" name="email" placeholder="Correo electrónico" [(ngModel)]="registro.email" required>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" name="password" placeholder="Contraseña" [(ngModel)]="registro.password" minlength="6"
+          required>
+      </div>
+
+      <button type="submit" class="btn-primary-auth">Crear cuenta</button>
+    </form>
+
+    <div class="auth-footer-link">
+      <p>¿Ya tienes una cuenta?</p>
+      <a (click)="modoAuth = 'login'" class="create-account-link">Inicia sesión</a>
+    </div>
+    }
+
   </div>
 </div>
 }

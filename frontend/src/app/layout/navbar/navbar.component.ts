@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   private router = inject(Router);
@@ -19,6 +20,14 @@ export class NavbarComponent {
   mostrarLoginModal: boolean = false;
   mostrarCarritoModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
+
+  registro = {
+    nombre: '',
+    apellido: '',
+    celular: '',
+    email: '',
+    password: '',
+  };
 
   get totalItemsCart(): number {
     return this.cartService.TotalItems;
@@ -41,6 +50,11 @@ export class NavbarComponent {
     this.mostrarLoginModal = false;
   }
 
+  registrarse(): void {
+    console.log('Datos de registro:', this.registro);
+    // Aquí luego llamas a tu servicio o backend para guardar al usuario
+  }
+
   toggleCarritoModal(): void {
     this.mostrarCarritoModal = !this.mostrarCarritoModal;
     this.cerrarMenu();
@@ -58,7 +72,9 @@ export class NavbarComponent {
 
   ejecutarBusqueda(): void {
     if (this.textoBusqueda.trim()) {
-      this.router.navigate(['/catalogo'], { queryParams: { q: this.textoBusqueda } });
+      this.router.navigate(['/catalogo'], {
+        queryParams: { q: this.textoBusqueda },
+      });
       this.cerrarMenu();
     }
   }
