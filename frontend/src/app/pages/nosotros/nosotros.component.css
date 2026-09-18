@@ -1,0 +1,39 @@
+.fondo {
+padding: 10px 5px;
+  position: relative;
+  isolation: isolate;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.fondo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/assets/logo Drip Shoes.png') center / cover no-repeat;
+  opacity: 0.1;
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.fondo h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.fondo h2 {
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.fondo p {
+  font-size: 0.9rem;
+  text-align: justify;
+  margin-bottom: 15px;
+}
+
+.fondo p:last-of-type {
+  margin-bottom: 50px;
+}
