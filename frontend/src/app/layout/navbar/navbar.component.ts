@@ -5,6 +5,17 @@ import { RouterLink } from '@angular/router';
   selector: 'app-navbar',
   standalone: true,
   imports: [RouterLink], // Esto "enciende" los botones routerLink del HTML
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
-export class NavbarComponent { }
+export class NavbarComponent {
+  menuAbierto: boolean = false;
+
+  toggleMenu(): void {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
+  cerrarMenu(): void {
+    this.menuAbierto = false;
+  }
+}
