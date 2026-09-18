@@ -54,28 +54,28 @@
   </div>
 
   <!-- SECCIÓN 3: POPULAR (Cuadrícula de la Base de Datos - 8 MAX) -->
+  <!-- SECCIÓN 3: POPULAR (Cuadrícula de la Base de Datos - 8 MAX) -->
   <div id="popular" style="padding: 80px 40px; background: #fafafa; scroll-margin-top: 80px;">
-    <h2 style="font-family: 'Didot', 'Playfair Display', serif; margin-bottom: 40px; font-size: 2rem; text-align: left; font-weight: normal; color: #111;">Recomendados para ti</h2>
+    <h2 style="font-family: 'Playfair Display', 'Didot', 'Georgia', serif; margin-bottom: 40px; font-size: 2.2rem; text-align: left; font-weight: 600; color: #111; letter-spacing: -0.5px;">Recomendados para ti</h2>
     
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
       
       <!-- Mostramos solo los primeros 8 productos -->
       @for (producto of productos | slice:0:8; track producto.id) {
-        <div style="background: #fff; padding: 20px; text-align: center; border: 1px solid #eee; transition: transform 0.2s;">
+        <div style="background: #fff; padding: 24px; text-align: center; border: 1px solid #eaeaea; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;">
           
-          <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
-            <img [src]="producto.imagen || 'assets/placeholder.jpg'" alt="{{ producto.nombre }}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+          <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; background: #fdfdfd; border-radius: 12px; padding: 10px;">
+            <img [src]="producto.imagen || 'assets/placeholder.jpg'" alt="{{ producto.nombre }}" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));">
           </div>
           
-          <p style="color: #888; font-size: 11px; margin: 0; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">{{ producto.marca }}</p>
-          <h3 style="font-size: 14px; margin: 8px 0; min-height: 40px; color: #222; font-weight: 400;">{{ producto.nombre }}</h3>
+          <p style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; color: #94a3b8; font-size: 11px; margin: 0; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px;">{{ producto.marca }}</p>
+          <h3 style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; font-size: 15px; margin: 10px 0; min-height: 42px; color: #1e293b; font-weight: 500; line-height: 1.4; letter-spacing: -0.2px;">{{ producto.nombre }}</h3>
           
           <!-- Precio formateado con decimales premium -->
-          <p style="font-weight: bold; font-size: 17px; margin: 10px 0; color: #e50046;">S/ {{ producto.precio | number:'1.2-2' }}</p>
+          <p style="font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif; font-weight: 700; font-size: 18px; margin: 12px 0 0 0; color: #e50046; letter-spacing: -0.3px;">S/ {{ producto.precio | number:'1.2-2' }}</p>
         </div>
       }
       
     </div>
   </div>
-
 </div>
