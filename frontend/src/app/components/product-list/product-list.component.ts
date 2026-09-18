@@ -26,6 +26,7 @@ export class ProductListComponent implements OnInit {
 
   agregarZapato() {
     this.productService.crearProducto(this.nuevoZapato).subscribe(() => {
+      alert('¡Producto agregado correctamente al inventario!');
       this.cargarProductos();
       this.nuevoZapato = { nombre: '', marca: '', precio: 0 };
     });
