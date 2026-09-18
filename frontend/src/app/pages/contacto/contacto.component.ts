@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './contacto.component.css'
 })
 export class ContactoComponent {
+  mensajeEnviado: boolean = false;
 
+  validarFormulario(): void {
+    this.mensajeEnviado = true;
+  }
 }
