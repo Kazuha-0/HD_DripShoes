@@ -1,12 +1,152 @@
-<nav style="display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #000; color: #fff; position: sticky; top: 0; z-index: 1000;">
-  <div>
-    <img src="assets/logo Drip Shoes.png" alt="Drip Shoes Logo" style="height: 50px; cursor: pointer;" routerLink="/">
+<nav class="navbar">
+  <!-- Logo -->
+  <div class="navbar-logo">
+    <img src="assets/logo Drip Shoes.png" alt="Drip Shoes Logo" routerLink="/" (click)="cerrarMenu()">
   </div>
-  <ul style="display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; font-family: sans-serif; font-weight: bold; font-size: 14px;">
-    <li><a routerLink="/" fragment="inicio" style="color: #fff; text-decoration: none; cursor: pointer;">INICIO</a></li>
-    <li><a routerLink="/" fragment="catalogo" style="color: #fff; text-decoration: none; cursor: pointer;">CATALOGO</a></li>
-    <li><a routerLink="/" fragment="popular" style="color: #fff; text-decoration: none; cursor: pointer;">POPULAR</a></li>
-    <li><a routerLink="/nosotros" style="color: #fff; text-decoration: none; cursor: pointer;">NOSOTROS</a></li>
-    <li><a routerLink="/contacto" style="color: #fff; text-decoration: none; cursor: pointer;">CONTACTANOS</a></li>
+
+  <!-- Barra de Búsqueda -->
+  <div class="navbar-search">
+    <input 
+      type="text" 
+      placeholder="¿Qué estás buscando?" 
+      (keyup.enter)="buscar($event)"
+      class="search-input"
+    >
+    <button class="search-btn" (click)="ejecutarBusqueda()" aria-label="Buscar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Enlaces y Botón de Usuario -->
+  <div class="navbar-right">
+  <ul class="nav-links" [class.active]="menuAbierto">
+    <li><a routerLink="/" fragment="inicio" (click)="cerrarMenu()">INICIO</a></li>
+    <li><a routerLink="/" fragment="catalogo" (click)="cerrarMenu()">CATÁLOGO</a></li>
+    <li><a routerLink="/" fragment="popular" (click)="cerrarMenu()">POPULAR</a></li>
+    <li><a routerLink="/nosotros" (click)="cerrarMenu()">NOSOTROS</a></li>
+    <li><a routerLink="/contacto" (click)="cerrarMenu()">CONTÁCTANOS</a></li>
   </ul>
+
+  <!-- Ícono del Carrito con Contador -->
+  <button class="cart-btn" aria-label="Carrito de compras" (click)="toggleCarritoModal()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+  @if (totalItemsCart > 0) {
+    <span class="cart-badge">{{ totalItemsCart }}</span>
+  }
+</button>
+
+<!-- PANEL LATERAL DEL CARRITO (DESDE LA DERECHA) -->
+@if (mostrarCarritoModal) {
+  <div class="cart-drawer-overlay" (click)="cerrarCarritoModal()">
+    <div class="cart-drawer-panel" (click)="$event.stopPropagation()">
+      
+      <!-- Encabezado del Panel -->
+      <div class="cart-drawer-header">
+        <h3>Tu Carrito</h3>
+        <button class="cart-drawer-close" (click)="cerrarCarritoModal()">&times;</button>
+      </div>
+
+      <!-- Contenido del Carrito -->
+      <div class="cart-drawer-body">
+        @if (totalItemsCart === 0) {
+          <div class="cart-empty-state">
+            <p>Aún no has agregado artículos a tu compra.</p>
+          </div>
+        } @else {
+          <!-- Lista de productos si tiene elementos -->
+          <div class="cart-items-list">
+            <!-- Aquí mapeas los ítems de tu CartService -->
+            <p style="font-weight: bold;">Tienes {{ totalItemsCart }} producto(s) en tu carrito.</p>
+          </div>
+        }
+      </div>
+
+      <!-- Pie del Panel -->
+      <div class="cart-drawer-footer">
+        <button class="btn-close-continue" (click)="cerrarCarritoModal()">
+          &lt; Cerrar y continuar comprando
+        </button>
+      </div>
+
+    </div>
+  </div>
+}
+
+  <!-- Botón de Usuario -->
+  <button class="user-btn" aria-label="Cuenta de usuario" (click)="abrirLoginModal()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+    </svg>
+  </button>
+
+    <!-- Botón Hamburguesa Móvil -->
+    <button class="hamburger-btn" (click)="toggleMenu()" [class.open]="menuAbierto" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MODAL DE INICIO DE SESIÓN / REGISTRO -->
+@if (mostrarLoginModal) {
+  <div class="auth-modal-overlay" (click)="cerrarLoginModal()">
+    <div class="auth-modal-card" (click)="$event.stopPropagation()">
+      <button class="auth-modal-close" (click)="cerrarLoginModal()">&times;</button>
+
+      <h2 class="auth-title">¡Bienvenido a Drip Shoes!</h2>
+      <p class="auth-subtitle">Inicia sesión para comprar</p>
+
+      <!-- Pestañas Selectoras (Iniciar Sesión / Registro) -->
+      <div class="auth-tabs">
+        <button [class.active]="modoAuth === 'login'" (click)="modoAuth = 'login'">Iniciar sesión</button>
+        <button [class.active]="modoAuth === 'registro'" (click)="modoAuth = 'registro'">Registro</button>
+      </div>
+
+      <!-- Formulario -->
+      <form class="auth-form" (submit)="$event.preventDefault()">
+        <div class="input-group">
+          <span class="input-icon">✉</span>
+          <input type="email" placeholder="Correo electrónico" required>
+        </div>
+
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input type="password" placeholder="Contraseña" required>
+          <span class="eye-icon">👁</span>
+        </div>
+
+        <div class="forgot-link-container">
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn-primary-auth">
+          {{ modoAuth === 'login' ? 'Iniciar sesión' : 'Crear cuenta' }}
+        </button>
+
+        <!-- Botones Sociales -->
+        <button type="button" class="btn-social google">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18">
+          Iniciar Sesión con Google
+        </button>
+
+        <button type="button" class="btn-social facebook">
+          <svg width="18" height="18" fill="#1877F2" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Iniciar Sesión con Facebook
+        </button>
+      </form>
+
+      <div class="auth-footer-link">
+        <p>¿Eres nuevo en Drip Shoes?</p>
+        <a (click)="modoAuth = 'registro'" class="create-account-link">Crea tu cuenta</a>
+      </div>
+    </div>
+  </div>
+}
