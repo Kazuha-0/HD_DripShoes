@@ -12,5 +12,10 @@ export class ContactoComponent {
 
   validarFormulario(): void {
     this.mensajeEnviado = true;
+    alert('¡Gracias por contactarnos! Tu mensaje ha sido enviado con éxito.');
+  }
+
+  limpiarFormulario(): void {
+    this.mensajeEnviado = false;
   }
 }
