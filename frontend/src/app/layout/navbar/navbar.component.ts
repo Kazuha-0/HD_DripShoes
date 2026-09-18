@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink], // Esto "enciende" los botones routerLink del HTML
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   menuAbierto: boolean = false;
+  textoBusqueda: string = '';
+
+  constructor(private router: Router) {}
 
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
@@ -17,5 +20,18 @@ export class NavbarComponent {
 
   cerrarMenu(): void {
     this.menuAbierto = false;
+  }
+
+  buscar(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.textoBusqueda = input.value;
+    this.ejecutarBusqueda();
+  }
+
+  ejecutarBusqueda(): void {
+    if (this.textoBusqueda.trim()) {
+      this.router.navigate(['/catalogo'], { queryParams: { q: this.textoBusqueda } });
+      this.cerrarMenu();
+    }
   }
 }
