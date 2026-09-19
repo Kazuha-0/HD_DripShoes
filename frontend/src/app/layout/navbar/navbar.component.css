@@ -415,7 +415,7 @@
   top: 2px;
   right: 2px;
   background-color: #6b092b;
-  color: #ffffff;
+  color: #fffefe;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -613,4 +613,193 @@
   color: #64748b;
   text-align: center;
   font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+}
+
+/* ---------- BUSCADOR: LISTA DE RESULTADOS ---------- */
+.navbar-search {
+  position: relative;
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  min-width: 320px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 1500;
+}
+
+.search-result-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid #f1f1f1;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: #fafafa;
+}
+
+.search-result-item img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #fafafa;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.search-result-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.search-result-marca {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.search-result-nombre {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-precio {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b092b;
+  white-space: nowrap;
+}
+
+.search-no-results {
+  margin: 0;
+  padding: 16px;
+  font-size: 13px;
+  color: #64748b;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+}
+
+/* ---------- CARRITO: ÍTEMS DEL PANEL ---------- */
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f1f1f1;
+  font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+}
+
+.cart-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: #fafafa;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cart-item-marca {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.cart-item-nombre {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cart-item-precio {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b092b;
+}
+
+.cart-item-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.cart-item-qty button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  color:rgba(0, 0, 0, 0.15)
+}
+
+.cart-item-qty button:hover {
+  background: #6b092b;
+  color: #fff;
+  border-color: #6b092b;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #94a3b8;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cart-item-remove:hover {
+  color: #6b092b;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0 4px;
+  font-size: 16px;
+  font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+}
+
+.cart-total strong {
+  color: #6b092b;
 }

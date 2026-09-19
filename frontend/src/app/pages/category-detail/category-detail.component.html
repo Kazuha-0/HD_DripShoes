@@ -80,8 +80,8 @@
         <p class="price">S/ {{ productoSeleccionado.precio | number:'1.2-2' }}</p>
         <p class="description">{{ productoSeleccionado.descripcion || 'Sin descripción disponible.' }}</p>
 
-        <button class="btn-add-cart" (click)="cerrarModal()">
-          Añadir al Carrito
+        <button (click)="comprar(productoSeleccionado); cerrarModal()">
+          Añadir al carrito
         </button>
       </div>
     </div>

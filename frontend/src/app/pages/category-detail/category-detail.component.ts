@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, HostListener, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; // <-- 1. Importar CommonModule
+import { CommonModule } from '@angular/common';
 import { Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 interface CategoryInfo {
   titulo: string;
@@ -12,25 +13,18 @@ interface CategoryInfo {
 @Component({
   selector: 'app-category-detail',
   standalone: true,
-  imports: [CommonModule], // <-- 2. Añadirlo a la lista de imports
+  imports: [CommonModule],
   templateUrl: './category-detail.component.html',
   styleUrls: ['./category-detail.component.css'],
 })
 export class CategoryDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
+  private cartService = inject(CartService);
 
   categoria: string = '';
   productos: Product[] = [];
   productoSeleccionado: any = null;
-
-  abrirVistaRapida(producto: any): void {
-    this.productoSeleccionado = producto;
-  }
-
-  cerrarModal(): void {
-    this.productoSeleccionado = null;
-  }
 
   infoCategorias: Record<string, CategoryInfo> = {
     caballeros: {
@@ -65,5 +59,27 @@ export class CategoryDetailComponent implements OnInit {
         next: (data) => (this.productos = data),
         error: (err) => console.error('Error al filtrar productos:', err),
       });
+  }
+
+  // ---------- MODAL VISTA RÁPIDA ----------
+  abrirVistaRapida(producto: any): void {
+    this.productoSeleccionado = producto;
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarModal(): void {
+    this.productoSeleccionado = null;
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.productoSeleccionado) this.cerrarModal();
+  }
+
+  // ---------- CARRITO ----------
+  comprar(producto: any): void {
+    this.cartService.agregarProducto(producto);
+    this.cartService.abrirCarrito();
   }
 }
