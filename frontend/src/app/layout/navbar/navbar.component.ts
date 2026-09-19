@@ -8,7 +8,7 @@ import { ProductService, Product } from '../../services/product.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, FormsModule, DecimalPipe], // DecimalPipe para el pipe "number"
+  imports: [RouterLink, FormsModule, DecimalPipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit {
 
   menuAbierto: boolean = false;
   mostrarLoginModal: boolean = false;
-  mostrarCarritoModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
 
   // Búsqueda
@@ -46,10 +45,50 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  // ---------- CARRITO (estado en CartService) ----------
   get totalItemsCart(): number {
     return this.cartService.TotalItems;
   }
 
+  get mostrarCarritoModal(): boolean {
+    return this.cartService.carritoAbierto;
+  }
+
+  get items() {
+    return this.cartService.items;
+  }
+
+  get totalPrecio(): number {
+    return this.cartService.TotalPrecio;
+  }
+
+  toggleCarritoModal(): void {
+    this.cartService.toggleCarrito();
+    this.cerrarMenu();
+  }
+
+  cerrarCarritoModal(): void {
+    this.cartService.cerrarCarrito();
+  }
+
+  aumentar(producto: any): void {
+    this.cartService.agregarProducto(producto);
+  }
+
+  disminuir(id: any): void {
+    this.cartService.disminuirProducto(id);
+  }
+
+  quitar(id: any): void {
+    this.cartService.quitarProducto(id);
+  }
+
+  comprar(producto: any): void {
+    this.cartService.agregarProducto(producto);
+    this.cartService.abrirCarrito();
+  }
+
+  // ---------- MENÚ Y LOGIN ----------
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
   }
@@ -72,17 +111,8 @@ export class NavbarComponent implements OnInit {
     // Aquí luego llamas a tu servicio o backend para guardar al usuario
   }
 
-  toggleCarritoModal(): void {
-    this.mostrarCarritoModal = !this.mostrarCarritoModal;
-    this.cerrarMenu();
-  }
-
-  cerrarCarritoModal(): void {
-    this.mostrarCarritoModal = false;
-  }
-
   // ---------- BÚSQUEDA ----------
-  // Quita tildes y pasa a minúsculas: "Zapatilla" encuentra "zapatilla" y "zapatíllá"
+  // Quita tildes y pasa a minúsculas
   private normalizar(texto: string): string {
     return (texto || '')
       .normalize('NFD')
@@ -110,7 +140,7 @@ export class NavbarComponent implements OnInit {
     this.mostrarResultados = true;
   }
 
-  // Enter: abre el primer resultado
+  // Enter o clic en la lupa: abre el primer resultado
   abrirPrimerResultado(): void {
     this.filtrar();
     if (this.resultados.length > 0) {
@@ -138,11 +168,6 @@ export class NavbarComponent implements OnInit {
   cerrarModal(): void {
     this.productoSeleccionado = null;
     document.body.style.overflow = '';
-  }
-
-  comprar(producto: any): void {
-    // Aquí llamas a tu CartService, igual que en el Home
-    console.log('Comprar:', producto);
   }
 
   @HostListener('document:keydown.escape')

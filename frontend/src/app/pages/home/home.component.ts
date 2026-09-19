@@ -6,18 +6,21 @@ import {
   HostListener,
 } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, CommonModule], // <-- 2. Añádelo a los imports
+  imports: [RouterLink, CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private productService = inject(ProductService);
+  private cartService = inject(CartService);
+
   productos: Product[] = [];
   mostrarBotonScroll: boolean = false;
   productoSeleccionado: any = null;
@@ -48,24 +51,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       clearInterval(this.slideInterval);
     }
   }
-  // Escucha el evento de desplazamiento de la ventana
+
+  // Muestra el botón "volver arriba" al bajar más de 300px
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    // Muestra el botón cuando el usuario desplaza más de 300px hacia abajo
     this.mostrarBotonScroll = window.scrollY > 300;
   }
 
-  // Función para volver al inicio suavemente
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  comprar(producto: any): void {
-    // Aquí llamas a tu servicio del carrito, por ejemplo:
-    // this.cartService.agregar(producto);
-    console.log('Comprar:', producto);
-  }
-
+  // ---------- MODAL VISTA RÁPIDA ----------
   abrirVistaRapida(producto: any): void {
     this.productoSeleccionado = producto;
     document.body.style.overflow = 'hidden';
@@ -79,5 +76,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.productoSeleccionado) this.cerrarModal();
+  }
+
+  // ---------- CARRITO ----------
+  comprar(producto: any): void {
+    this.cartService.agregarProducto(producto);
+    this.cartService.abrirCarrito();
   }
 }
