@@ -1,25 +1,34 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { CartService } from '../../services/cart.service';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
+import { ProductService, Product } from '../../services/product.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, DecimalPipe], // DecimalPipe para el pipe "number"
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
-  private router = inject(Router);
+export class NavbarComponent implements OnInit {
   private cartService = inject(CartService);
+  private productService = inject(ProductService);
 
   menuAbierto: boolean = false;
-  textoBusqueda: string = '';
-
   mostrarLoginModal: boolean = false;
   mostrarCarritoModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
+
+  // Búsqueda
+  textoBusqueda: string = '';
+  productos: Product[] = [];
+  resultados: Product[] = [];
+  mostrarResultados: boolean = false;
+
+  // Modal de vista rápida
+  productoSeleccionado: any = null;
 
   registro = {
     nombre: '',
@@ -28,6 +37,14 @@ export class NavbarComponent {
     email: '',
     password: '',
   };
+
+  ngOnInit(): void {
+    this.productService.getProductos().subscribe({
+      next: (data) => (this.productos = data),
+      error: (err) =>
+        console.error('Error al cargar productos en el navbar:', err),
+    });
+  }
 
   get totalItemsCart(): number {
     return this.cartService.TotalItems;
@@ -64,18 +81,73 @@ export class NavbarComponent {
     this.mostrarCarritoModal = false;
   }
 
-  buscar(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.textoBusqueda = input.value;
-    this.ejecutarBusqueda();
+  // ---------- BÚSQUEDA ----------
+  // Quita tildes y pasa a minúsculas: "Zapatilla" encuentra "zapatilla" y "zapatíllá"
+  private normalizar(texto: string): string {
+    return (texto || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
   }
 
-  ejecutarBusqueda(): void {
-    if (this.textoBusqueda.trim()) {
-      this.router.navigate(['/catalogo'], {
-        queryParams: { q: this.textoBusqueda },
-      });
-      this.cerrarMenu();
+  filtrar(): void {
+    const q = this.normalizar(this.textoBusqueda.trim());
+
+    if (!q) {
+      this.resultados = [];
+      this.mostrarResultados = false;
+      return;
     }
+
+    this.resultados = this.productos
+      .filter((p) =>
+        this.normalizar(
+          `${p.nombre} ${p.marca} ${p.descripcion ?? ''}`,
+        ).includes(q),
+      )
+      .slice(0, 6); // máximo 6 sugerencias
+
+    this.mostrarResultados = true;
+  }
+
+  // Enter: abre el primer resultado
+  abrirPrimerResultado(): void {
+    this.filtrar();
+    if (this.resultados.length > 0) {
+      this.abrirVistaRapida(this.resultados[0]);
+    }
+  }
+
+  // Cierra la lista si haces clic fuera del buscador
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.navbar-search')) {
+      this.mostrarResultados = false;
+    }
+  }
+
+  // ---------- MODAL VISTA RÁPIDA ----------
+  abrirVistaRapida(producto: any): void {
+    this.productoSeleccionado = producto;
+    this.mostrarResultados = false;
+    this.cerrarMenu();
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarModal(): void {
+    this.productoSeleccionado = null;
+    document.body.style.overflow = '';
+  }
+
+  comprar(producto: any): void {
+    // Aquí llamas a tu CartService, igual que en el Home
+    console.log('Comprar:', producto);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.mostrarResultados = false;
+    if (this.productoSeleccionado) this.cerrarModal();
   }
 }
