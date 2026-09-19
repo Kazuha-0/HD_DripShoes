@@ -73,7 +73,6 @@
   </div>
 
   <!-- SECCIÓN 3: POPULAR (Cuadrícula de la Base de Datos - 8 MAX) -->
-  <!-- SECCIÓN 3: POPULAR (Cuadrícula de la Base de Datos - 8 MAX) -->
   <div id="popular" style="padding: 80px 40px; background: #fafafa; scroll-margin-top: 80px;">
     <h2
       style="font-family: 'Playfair Display', 'Didot', 'Georgia', serif; margin-bottom: 40px; font-size: 2.2rem; text-align: left; font-weight: 600; color: #111; letter-spacing: -0.5px;">
@@ -91,21 +90,70 @@
 
         <p class="producto-marca">{{ producto.marca }}</p>
         <h3 class="producto-nombre">{{ producto.nombre }}</h3>
-
-        <!-- Precio formateado con decimales premium -->
         <p class="producto-precio">S/ {{ producto.precio | number:'1.2-2' }}</p>
 
-        <button type="button" class="btn-comprar" (click)="comprar(producto); $event.stopPropagation()">
-          Comprar
+        <button (click)="abrirVistaRapida(producto)"
+          style="width: 100%; padding: 12px; background-color: #6b092b; color: #ffffff; border: none; border-radius: 25px; font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; transition: background-color 0.3s ease, transform 0.2s ease;">
+          Ver Producto
         </button>
       </div>
       }
 
+    </div> <!-- aquí cierra la cuadrícula -->
+  </div>
+
+  <!-- MODAL VISTA RÁPIDA (fuera de la cuadrícula) -->
+  @if (productoSeleccionado) {
+  <div (click)="cerrarModal()"
+    style="position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px;">
+
+    <div (click)="$event.stopPropagation()"
+      style="background: #fff; border-radius: 20px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.25);">
+
+      <button (click)="cerrarModal()"
+        style="position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 26px; cursor: pointer; color: #64748b; line-height: 1;">
+        &times;
+      </button>
+
+      <div
+        style="background: #fafafa; display: flex; align-items: center; justify-content: center; padding: 30px; border-radius: 20px 0 0 20px;">
+        <img [src]="productoSeleccionado.imagen || 'assets/placeholder.jpg'" [alt]="productoSeleccionado.nombre"
+          style="max-width: 100%; max-height: 320px; object-fit: contain;">
+      </div>
+
+      <div
+        style="padding: 35px 30px; display: flex; flex-direction: column; justify-content: center; font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;">
+        <span
+          style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 1.5px;">
+          {{ productoSeleccionado.marca }}
+        </span>
+        <h2 style="font-size: 22px; margin: 8px 0; color: #1e293b; font-weight: 600;">
+          {{ productoSeleccionado.nombre }}
+        </h2>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0 0 16px 0;">
+          {{ productoSeleccionado.descripcion }}
+        </p>
+        <p style="font-size: 24px; font-weight: 700; color: #6b092b; margin: 0 0 22px 0;">
+          S/ {{ productoSeleccionado.precio | number:'1.2-2' }}
+        </p>
+        <button (click)="comprar(productoSeleccionado); cerrarModal()"
+          style="width: 100%; padding: 12px; background-color: #6b092b; color: #fff; border: none; border-radius: 25px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">
+          Añadir al carrito
+        </button>
+      </div>
     </div>
   </div>
+  }
+
   @if (mostrarBotonScroll) {
   <button class="scroll-to-top-btn" (click)="scrollToTop()" aria-label="Volver arriba">
     ▲
   </button>
   }
 </div>
+
+@if (mostrarBotonScroll) {
+<button class="scroll-to-top-btn" (click)="scrollToTop()" aria-label="Volver arriba">
+  ▲
+</button>
+}

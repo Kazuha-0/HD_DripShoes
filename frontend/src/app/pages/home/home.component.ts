@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private productService = inject(ProductService);
   productos: Product[] = [];
   mostrarBotonScroll: boolean = false;
+  productoSeleccionado: any = null;
 
   // Lógica del Carrusel
   slides: string[] = [
@@ -63,5 +64,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Aquí llamas a tu servicio del carrito, por ejemplo:
     // this.cartService.agregar(producto);
     console.log('Comprar:', producto);
+  }
+
+  abrirVistaRapida(producto: any): void {
+    this.productoSeleccionado = producto;
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarModal(): void {
+    this.productoSeleccionado = null;
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.productoSeleccionado) this.cerrarModal();
   }
 }
