@@ -1,69 +1,44 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  inject,
+  HostListener,
+} from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, CommonModule], // <-- 2. Añádelo a los imports
+  imports: [RouterLink, CommonModule],
   templateUrl: './home.component.html',
-  styles: [`
-
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 80px); /* Ocupa el 100% de la pantalla menos el Navbar */
-      min-height: 500px;
-      overflow: hidden;
-      background-color: #000;
-    }
-    .carousel-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-    .carousel-slide.active {
-      opacity: 1;
-    }
-    .carousel-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      z-index: 10;
-    }
-  `]
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private productService = inject(ProductService);
+  private cartService = inject(CartService);
+
   productos: Product[] = [];
+  mostrarBotonScroll: boolean = false;
+  productoSeleccionado: any = null;
 
   // Lógica del Carrusel
   slides: string[] = [
     'assets/img_inicio/slide1.jpg',
     'assets/img_inicio/slide2.jpg',
     'assets/img_inicio/slide3.jpg',
-    'assets/img_inicio/slide4.jpg'
+    'assets/img_inicio/slide4.jpg',
   ];
   currentSlide = 0;
   slideInterval: any;
 
   ngOnInit() {
     this.productService.getProductos().subscribe({
-      next: (data) => this.productos = data,
-      error: (err) => console.error('Error al cargar BD:', err)
+      next: (data) => (this.productos = data),
+      error: (err) => console.error('Error al cargar BD:', err),
     });
 
     this.slideInterval = setInterval(() => {
@@ -75,5 +50,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.slideInterval) {
       clearInterval(this.slideInterval);
     }
+  }
+
+  // Muestra el botón "volver arriba" al bajar más de 300px
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.mostrarBotonScroll = window.scrollY > 300;
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ---------- MODAL VISTA RÁPIDA ----------
+  abrirVistaRapida(producto: any): void {
+    this.productoSeleccionado = producto;
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarModal(): void {
+    this.productoSeleccionado = null;
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.productoSeleccionado) this.cerrarModal();
+  }
+
+  // ---------- CARRITO ----------
+  comprar(producto: any): void {
+    this.cartService.agregarProducto(producto);
+    this.cartService.abrirCarrito();
   }
 }

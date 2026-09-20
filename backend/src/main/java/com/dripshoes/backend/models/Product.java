@@ -19,4 +19,10 @@ public class Product {
     private String descripcion;
     private String categoria; // "Caballeros", "Damas" o "Infantil"
     private String imagen;    // URL de la imagen del producto
+
+    // Método utilitario para obtener el precio con formato
+    public String getPrecioFormateado() {
+        if (this.precio == null) return "S/ 0.00";
+        return String.format("S/ %.2f", this.precio);
+    }
 }
