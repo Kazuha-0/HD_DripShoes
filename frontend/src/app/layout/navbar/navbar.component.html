@@ -6,7 +6,7 @@
 
   <!-- Barra de Búsqueda -->
   <div class="navbar-search">
-    <input type="text" placeholder="¿Qué estás buscando?" class="search-input" [(ngModel)]="textoBusqueda"
+    <input type="text" placeholder="¿Busca tu calzado ideal?" class="search-input" [(ngModel)]="textoBusqueda"
       (ngModelChange)="filtrar()" (keyup.enter)="abrirPrimerResultado()" (focus)="filtrar()">
     <button class="search-btn" (click)="abrirPrimerResultado()" aria-label="Buscar">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
