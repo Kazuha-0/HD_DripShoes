@@ -1,47 +1,92 @@
-<footer style="background: #f8f8f8; padding: 60px 40px; font-family: sans-serif; border-top: 1px solid #eaeaea;">
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1200px; margin: auto;">
-    
-    <div>
-      <h3 style="color: #e50046; font-size: 18px; margin-bottom: 15px; text-transform: uppercase;">Drip Shoes Club</h3>
-      <p style="font-size: 13px; color: #555; line-height: 1.6;">Únete a nuestra comunidad y recibe promociones exclusivas, descuentos de temporada y noticias antes que nadie.</p>
-      <div style="margin-top: 15px;">
-        <a href="#" style="margin-right: 10px; color: #333; text-decoration: none; font-weight: bold; font-size: 12px;">Instagram</a>
-        <a href="#" style="margin-right: 10px; color: #333; text-decoration: none; font-weight: bold; font-size: 12px;">Facebook</a>
-        <a href="#" style="color: #333; text-decoration: none; font-weight: bold; font-size: 12px;">TikTok</a>
+<footer class="footer">
+  <div class="footer-grid">
+
+    <!-- Columna 1: Club y redes -->
+    <div class="footer-col footer-brand">
+      <h3 class="footer-brand-title">Drip Shoes Club</h3>
+      <p class="footer-text">
+        Únete a nuestra comunidad y recibe promociones exclusivas, descuentos de temporada y noticias antes que nadie.
+      </p>
+
+      @if (suscrito) {
+      <p class="footer-ok">¡Gracias por unirte! Pronto recibirás nuestras novedades.</p>
+      } @else {
+      <div class="newsletter">
+        <input #emailInput type="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico"
+          (input)="errorEmail = false" (keyup.enter)="suscribir(emailInput.value)">
+        <button type="button" (click)="suscribir(emailInput.value)">Unirme</button>
+      </div>
+      @if (errorEmail) {
+      <p class="footer-error">Ingresa un correo válido.</p>
+      }
+      }
+
+      <!-- Redes sociales -->
+      <div class="socials">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-link instagram"
+          aria-label="Instagram" title="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social-link facebook"
+          aria-label="Facebook" title="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="social-link tiktok"
+          aria-label="TikTok" title="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+          </svg>
+        </a>
       </div>
     </div>
 
-    <div>
-      <h4 style="font-size: 14px; margin-bottom: 15px;">Acerca de Drip Shoes</h4>
-      <ul style="list-style: none; padding: 0; font-size: 13px; color: #666; line-height: 2;">
-        <li>Nuestra Historia</li>
-        <li>Trabaja con nosotros</li>
-        <li>Términos y condiciones</li>
-        <li>Políticas de Privacidad</li>
+    <!-- Columna 2 -->
+    <div class="footer-col">
+      <h4 class="footer-title">Acerca de Drip Shoes</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/nosotros">Nuestra Historia</a></li>
+        <li><a href="#" (click)="$event.preventDefault()">Trabaja con nosotros</a></li>
+        <li><a href="#" (click)="$event.preventDefault()">Términos y condiciones</a></li>
+        <li><a href="#" (click)="$event.preventDefault()">Políticas de Privacidad</a></li>
       </ul>
     </div>
 
-    <div>
-      <h4 style="font-size: 14px; margin-bottom: 15px;">Atención al Cliente</h4>
-      <ul style="list-style: none; padding: 0; font-size: 13px; color: #666; line-height: 2;">
-        <li>Preguntas Frecuentes</li>
-        <li>Cambios y Devoluciones</li>
-        <li>Libro de Reclamaciones</li>
-        <li>Seguimiento de Pedido</li>
+    <!-- Columna 3 -->
+    <div class="footer-col">
+      <h4 class="footer-title">Atención al Cliente</h4>
+      <ul class="footer-links">
+        <li><a href="#" (click)="$event.preventDefault()">Preguntas Frecuentes</a></li>
+        <li><a href="#" (click)="$event.preventDefault()">Cambios y Devoluciones</a></li>
+        <li><a href="#" (click)="$event.preventDefault()">Libro de Reclamaciones</a></li>
+        <li><a href="#" (click)="$event.preventDefault()">Seguimiento de Pedido</a></li>
       </ul>
     </div>
 
-    <div>
-      <h4 style="font-size: 14px; margin-bottom: 15px;">Contáctanos</h4>
-      <ul style="list-style: none; padding: 0; font-size: 13px; color: #666; line-height: 2;">
-        <li>contacto&#64;dripshoes.com</li>
-        <li>+51 999 888 777</li>
-        <li>Lunes a Sábado: 9am - 8pm</li>
+    <!-- Columna 4 -->
+    <div class="footer-col">
+      <h4 class="footer-title">Contáctanos</h4>
+      <ul class="footer-links">
+        <li><a href="mailto:contacto&#64;dripshoes.com">contacto&#64;dripshoes.com</a></li>
+        <li><a href="tel:+51999888777">+51 999 888 777</a></li>
+        <li><span class="footer-static">Lunes a Sábado: 9am - 8pm</span></li>
+        <li><a routerLink="/contacto">Escríbenos aquí</a></li>
       </ul>
     </div>
 
   </div>
-  <div style="text-align: center; padding-top: 40px; margin-top: 40px; border-top: 1px solid #ddd; font-size: 12px; color: #999;">
-    &copy; 2026 DripShoes Inc. Todos los derechos reservados.
+
+  <div class="footer-bottom">
+    <span>&copy; {{ anio }} DripShoes Inc. Todos los derechos reservados.</span>
   </div>
 </footer>
