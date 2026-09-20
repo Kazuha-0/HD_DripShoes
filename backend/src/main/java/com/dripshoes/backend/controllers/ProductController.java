@@ -18,12 +18,13 @@ public class ProductController {
 
     // Método GET: Lee y devuelve la lista completa de zapatos
     @GetMapping
-public List<Product> listarProductos(@RequestParam(required = false) String categoria) {
-    if (categoria != null && !categoria.isEmpty()) {
-        return productService.obtenerPorCategoria(categoria);
+    public List<Product> listarProductos(@RequestParam(required = false) String categoria) {
+        System.out.println("LOG INFO: Consulta de productos ejecutada exitosamente.");
+        if (categoria != null && !categoria.isEmpty()) {
+            return productService.obtenerPorCategoria(categoria);
+        }
+        return productService.obtenerTodos();
     }
-    return productService.obtenerTodos();
-}
 
     // Método POST: Recibe un JSON y crea un nuevo zapato en Supabase
     @PostMapping
