@@ -803,3 +803,38 @@
 .cart-total strong {
   color: #6b092b;
 }
+
+.user-name {
+  position: relative;
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+  cursor: pointer;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.user-name::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #e50046;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.user-name:hover {
+  color: #e50046;
+}
+
+.user-name:hover::after {
+  width: 100%;
+  left: 0;
+}
