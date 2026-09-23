@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ProductService, Product } from '../../services/product.service';
 import { RouterLink, RouterLinkActive } from '@angular/router'
+import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +17,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router'
 export class NavbarComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
+  private authService = inject(AuthService);
 
   menuAbierto: boolean = false;
   mostrarLoginModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
+  mensajeError: string = '';
 
   // Búsqueda
   textoBusqueda: string = '';
@@ -88,7 +92,7 @@ export class NavbarComponent implements OnInit {
     this.cartService.abrirCarrito();
   }
 
-  // ---------- MENÚ Y LOGIN ----------
+  // ---------- MENÚ ----------
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
   }
@@ -97,22 +101,60 @@ export class NavbarComponent implements OnInit {
     this.menuAbierto = false;
   }
 
+  // ---------- LOGIN / REGISTRO ----------
+  get usuarioActual() {
+    return this.authService.getUsuario();
+  }
+
+  get estaLogueado(): boolean {
+    return this.authService.estaAutenticado();
+  }
+
   abrirLoginModal(): void {
     this.mostrarLoginModal = true;
+    this.mensajeError = '';
     this.cerrarMenu();
   }
 
   cerrarLoginModal(): void {
     this.mostrarLoginModal = false;
+    this.mensajeError = '';
+  }
+
+  iniciarSesion(email: string, password: string): void {
+    this.mensajeError = '';
+    this.authService.login({ email, password }).subscribe({
+      next: () => this.cerrarLoginModal(),
+      error: (err) => {
+        this.mensajeError = err.error || 'Correo o contraseña incorrectos';
+      },
+    });
   }
 
   registrarse(): void {
-    console.log('Datos de registro:', this.registro);
-    // Aquí luego llamas a tu servicio o backend para guardar al usuario
+    this.mensajeError = '';
+    this.authService.registrar(this.registro).subscribe({
+      next: () => {
+        this.modoAuth = 'login';
+        this.registro = {
+          nombre: '',
+          apellido: '',
+          celular: '',
+          email: '',
+          password: '',
+        };
+      },
+      error: (err) => {
+        this.mensajeError = err.error || 'No se pudo completar el registro';
+      },
+    });
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();
   }
 
   // ---------- BÚSQUEDA ----------
-  // Quita tildes y pasa a minúsculas
   private normalizar(texto: string): string {
     return (texto || '')
       .normalize('NFD')
@@ -135,12 +177,11 @@ export class NavbarComponent implements OnInit {
           `${p.nombre} ${p.marca} ${p.descripcion ?? ''}`,
         ).includes(q),
       )
-      .slice(0, 6); // máximo 6 sugerencias
+      .slice(0, 6);
 
     this.mostrarResultados = true;
   }
 
-  // Enter o clic en la lupa: abre el primer resultado
   abrirPrimerResultado(): void {
     this.filtrar();
     if (this.resultados.length > 0) {
@@ -148,7 +189,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  // Cierra la lista si haces clic fuera del buscador
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
