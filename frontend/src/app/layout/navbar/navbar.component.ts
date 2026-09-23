@@ -1,11 +1,10 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ProductService, Product } from '../../services/product.service';
-import { RouterLink, RouterLinkActive } from '@angular/router'
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +17,8 @@ export class NavbarComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private authService = inject(AuthService);
+
+  @Output() toggleCart = new EventEmitter<void>();
 
   menuAbierto: boolean = false;
   mostrarLoginModal: boolean = false;
@@ -49,47 +50,19 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  // ---------- CARRITO (estado en CartService) ----------
+  // ---------- CARRITO ----------
   get totalItemsCart(): number {
     return this.cartService.TotalItems;
   }
 
-  get mostrarCarritoModal(): boolean {
-    return this.cartService.carritoAbierto;
-  }
-
-  get items() {
-    return this.cartService.items;
-  }
-
-  get totalPrecio(): number {
-    return this.cartService.TotalPrecio;
-  }
-
-  toggleCarritoModal(): void {
-    this.cartService.toggleCarrito();
+  abrirCarrito(): void {
+    this.cartService.abrirCarrito();
     this.cerrarMenu();
-  }
-
-  cerrarCarritoModal(): void {
-    this.cartService.cerrarCarrito();
-  }
-
-  aumentar(producto: any): void {
-    this.cartService.agregarProducto(producto);
-  }
-
-  disminuir(id: any): void {
-    this.cartService.disminuirProducto(id);
-  }
-
-  quitar(id: any): void {
-    this.cartService.quitarProducto(id);
   }
 
   comprar(producto: any): void {
     this.cartService.agregarProducto(producto);
-    this.cartService.abrirCarrito();
+    this.cartService.abrirCarrito(); // <-- Abre automáticamente el drawer
   }
 
   // ---------- MENÚ ----------
