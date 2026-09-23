@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +15,8 @@ import { ProductService, Product } from '../../services/product.service';
 export class NavbarComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
+
+  @Output() toggleCart = new EventEmitter<void>();
 
   menuAbierto: boolean = false;
   mostrarLoginModal: boolean = false;
@@ -45,47 +47,19 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  // ---------- CARRITO (estado en CartService) ----------
+  // ---------- CARRITO ----------
   get totalItemsCart(): number {
     return this.cartService.TotalItems;
   }
 
-  get mostrarCarritoModal(): boolean {
-    return this.cartService.carritoAbierto;
-  }
-
-  get items() {
-    return this.cartService.items;
-  }
-
-  get totalPrecio(): number {
-    return this.cartService.TotalPrecio;
-  }
-
-  toggleCarritoModal(): void {
-    this.cartService.toggleCarrito();
+abrirCarrito(): void {
+    this.cartService.abrirCarrito();
     this.cerrarMenu();
   }
 
-  cerrarCarritoModal(): void {
-    this.cartService.cerrarCarrito();
-  }
-
-  aumentar(producto: any): void {
+ comprar(producto: any): void {
     this.cartService.agregarProducto(producto);
-  }
-
-  disminuir(id: any): void {
-    this.cartService.disminuirProducto(id);
-  }
-
-  quitar(id: any): void {
-    this.cartService.quitarProducto(id);
-  }
-
-  comprar(producto: any): void {
-    this.cartService.agregarProducto(producto);
-    this.cartService.abrirCarrito();
+    this.cartService.abrirCarrito(); // <-- Abre automáticamente el drawer
   }
 
   // ---------- MENÚ Y LOGIN ----------
@@ -108,11 +82,9 @@ export class NavbarComponent implements OnInit {
 
   registrarse(): void {
     console.log('Datos de registro:', this.registro);
-    // Aquí luego llamas a tu servicio o backend para guardar al usuario
   }
 
   // ---------- BÚSQUEDA ----------
-  // Quita tildes y pasa a minúsculas
   private normalizar(texto: string): string {
     return (texto || '')
       .normalize('NFD')
@@ -135,12 +107,11 @@ export class NavbarComponent implements OnInit {
           `${p.nombre} ${p.marca} ${p.descripcion ?? ''}`,
         ).includes(q),
       )
-      .slice(0, 6); // máximo 6 sugerencias
+      .slice(0, 6);
 
     this.mostrarResultados = true;
   }
 
-  // Enter o clic en la lupa: abre el primer resultado
   abrirPrimerResultado(): void {
     this.filtrar();
     if (this.resultados.length > 0) {
@@ -148,7 +119,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  // Cierra la lista si haces clic fuera del buscador
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;

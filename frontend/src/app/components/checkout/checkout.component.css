@@ -1,0 +1,158 @@
+.checkout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+}
+
+.checkout-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  z-index: 2001;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  box-sizing: border-box;
+}
+
+.checkout-header {
+  text-align: center;
+}
+
+.checkout-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0;
+  color: #0f172a;
+}
+
+.company-info {
+  font-size: 11px;
+  color: #64748b;
+  margin: 4px 0 16px 0;
+}
+
+.success-icon {
+  width: 52px;
+  height: 52px;
+  background: #10b981;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 12px auto;
+  font-weight: bold;
+}
+
+.checkout-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+  color: #0f172a;
+}
+
+.receipt-number {
+  font-size: 12px;
+  color: #64748b;
+  margin: 4px 0 16px 0;
+}
+
+.checkout-body {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.receipt-date {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 12px 0;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #334155;
+}
+
+.item-desc {
+  font-weight: 500;
+}
+
+.item-price {
+  font-weight: 600;
+}
+
+.receipt-divider {
+  border-bottom: 1px dashed #cbd5e1;
+  margin: 12px 0;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.total-amount {
+  font-size: 17px;
+  color: #0f172a;
+}
+
+.checkout-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-print {
+  width: 100%;
+  padding: 12px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn-print:hover {
+  background: #1e293b;
+}
+
+.btn-home {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: #475569;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-home:hover {
+  color: #0f172a;
+}

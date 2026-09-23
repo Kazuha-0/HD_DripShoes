@@ -47,8 +47,8 @@
       <li><a routerLink="/contacto" (click)="cerrarMenu()">CONTÁCTANOS</a></li>
     </ul>
 
-    <!-- Ícono del Carrito con Contador -->
-    <button class="cart-btn" aria-label="Carrito de compras" (click)="toggleCarritoModal()">
+   <!-- Ícono del Carrito con Contador -->
+    <button class="cart-btn" aria-label="Carrito de compras" (click)="abrirCarrito()">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="21" r="1"></circle>
@@ -56,70 +56,11 @@
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
       </svg>
       @if (totalItemsCart > 0) {
-      <span class="cart-badge">{{ totalItemsCart }}</span>
+        <span class="cart-badge">{{ totalItemsCart }}</span>
       }
     </button>
 
-    <!-- PANEL LATERAL DEL CARRITO (DESDE LA DERECHA) -->
-    @if (mostrarCarritoModal) {
-    <div class="cart-drawer-overlay" (click)="cerrarCarritoModal()">
-      <div class="cart-drawer-panel" (click)="$event.stopPropagation()">
-
-        <!-- Encabezado del Panel -->
-        <div class="cart-drawer-header">
-          <h3>Tu Carrito</h3>
-          <button class="cart-drawer-close" (click)="cerrarCarritoModal()">&times;</button>
-        </div>
-
-        <!-- Contenido del Carrito -->
-        <div class="cart-drawer-body">
-          @if (totalItemsCart === 0) {
-          <div class="cart-empty-state">
-            <p>Tu carrito de compras está vacío actualmente.</p>
-          </div>
-          } @else {
-          <div class="cart-items-list">
-            @for (item of items; track item.producto.id) {
-            <div class="cart-item">
-              <img [src]="item.producto.imagen || 'assets/placeholder.jpg'" [alt]="item.producto.nombre">
-
-              <div class="cart-item-info">
-                <span class="cart-item-marca">{{ item.producto.marca }}</span>
-                <span class="cart-item-nombre">{{ item.producto.nombre }}</span>
-                <span class="cart-item-precio">S/ {{ item.producto.precio | number:'1.2-2' }}</span>
-
-                <div class="cart-item-qty">
-                  <button type="button" (click)="disminuir(item.producto.id)" aria-label="Disminuir cantidad">−</button>
-                  <span
-                    style="color: #1e293b; font-weight: 700; font-size: 14px; min-width: 24px; text-align: center; display: inline-block;">{{
-                    item.cantidad }}</span>
-                  <button type="button" (click)="aumentar(item.producto)" aria-label="Aumentar cantidad">+</button>
-                </div>
-              </div>
-
-              <button type="button" class="cart-item-remove" (click)="quitar(item.producto.id)"
-                aria-label="Quitar del carrito">&times;</button>
-            </div>
-            }
-
-            <div class="cart-total">
-              <span style="color: #1e293b; font-weight: 700;">Total</span>
-              <strong>S/ {{ totalPrecio | number:'1.2-2' }}</strong>
-            </div>
-          </div>
-          }
-        </div>
-
-        <!-- Pie del Panel -->
-        <div class="cart-drawer-footer">
-          <button class="btn-close-continue" (click)="cerrarCarritoModal()">
-            &lt; Cerrar y continuar comprando
-          </button>
-        </div>
-
-      </div>
-    </div>
-    }
+   
 
     <!-- Botón de Usuario -->
     <button class="user-btn" aria-label="Cuenta de usuario" (click)="abrirLoginModal()">
