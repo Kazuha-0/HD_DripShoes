@@ -1,26 +1,29 @@
 import { Component, HostListener, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ProductService, Product } from '../../services/product.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, FormsModule, DecimalPipe],
+  imports: [RouterLink, FormsModule, DecimalPipe, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
+  private authService = inject(AuthService);
 
   @Output() toggleCart = new EventEmitter<void>();
 
   menuAbierto: boolean = false;
   mostrarLoginModal: boolean = false;
   modoAuth: 'login' | 'registro' = 'login';
+  mensajeError: string = '';
 
   // Búsqueda
   textoBusqueda: string = '';
@@ -52,17 +55,17 @@ export class NavbarComponent implements OnInit {
     return this.cartService.TotalItems;
   }
 
-abrirCarrito(): void {
+  abrirCarrito(): void {
     this.cartService.abrirCarrito();
     this.cerrarMenu();
   }
 
- comprar(producto: any): void {
+  comprar(producto: any): void {
     this.cartService.agregarProducto(producto);
     this.cartService.abrirCarrito(); // <-- Abre automáticamente el drawer
   }
 
-  // ---------- MENÚ Y LOGIN ----------
+  // ---------- MENÚ ----------
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
   }
@@ -71,17 +74,57 @@ abrirCarrito(): void {
     this.menuAbierto = false;
   }
 
+  // ---------- LOGIN / REGISTRO ----------
+  get usuarioActual() {
+    return this.authService.getUsuario();
+  }
+
+  get estaLogueado(): boolean {
+    return this.authService.estaAutenticado();
+  }
+
   abrirLoginModal(): void {
     this.mostrarLoginModal = true;
+    this.mensajeError = '';
     this.cerrarMenu();
   }
 
   cerrarLoginModal(): void {
     this.mostrarLoginModal = false;
+    this.mensajeError = '';
+  }
+
+  iniciarSesion(email: string, password: string): void {
+    this.mensajeError = '';
+    this.authService.login({ email, password }).subscribe({
+      next: () => this.cerrarLoginModal(),
+      error: (err) => {
+        this.mensajeError = err.error || 'Correo o contraseña incorrectos';
+      },
+    });
   }
 
   registrarse(): void {
-    console.log('Datos de registro:', this.registro);
+    this.mensajeError = '';
+    this.authService.registrar(this.registro).subscribe({
+      next: () => {
+        this.modoAuth = 'login';
+        this.registro = {
+          nombre: '',
+          apellido: '',
+          celular: '',
+          email: '',
+          password: '',
+        };
+      },
+      error: (err) => {
+        this.mensajeError = err.error || 'No se pudo completar el registro';
+      },
+    });
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();
   }
 
   // ---------- BÚSQUEDA ----------
