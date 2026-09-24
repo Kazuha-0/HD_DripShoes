@@ -1,0 +1,168 @@
+/* Contenedor Principal */
+.catalog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Encabezado */
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #f1f1f1;
+  padding-bottom: 1rem;
+}
+
+.catalog-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.product-count {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Grilla de Productos */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+/* Tarjeta de Producto */
+.product-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e9e9e9;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge Superior (Nuevo, Oferta, etc.) */
+.card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background-color: #e63946;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Contenedor de Imagen con Efecto Zoom */
+/* Contenedor completo de la imagen */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-color: #f8f9fa; /* Fondo uniforme para la caja */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Forzar la imagen a centrarse en ambos ejes */
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;       /* Mantiene la proporción sin deformar */
+  object-position: center;  /* Fuerza el centrado absoluto */
+  margin: 0 auto;
+  display: block;
+}
+
+.product-card:hover .image-container img {
+  transform: scale(1.08);
+}
+
+/* Cuerpo de la Tarjeta */
+.card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.brand-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+}
+
+.category-tag {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+.product-price {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #e63946;            /* Rojo institucional de DripShoes */
+  margin: auto 0 1.25rem 0;
+}
+
+/* Botón Agregar al Carrito */
+.btn-add-cart {
+  width: 100%;
+  background-color: #111;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-add-cart:hover {
+  background-color: #e63946;
+}
+
+.btn-add-cart:active {
+  transform: scale(0.98);
+}
+
+.cart-icon {
+  stroke: #ffffff;
+}
