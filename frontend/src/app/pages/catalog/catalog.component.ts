@@ -1,34 +1,40 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [],
-  templateUrl: './catalog.component.html'
+  imports: [CommonModule, RouterLink],
+  templateUrl: './catalog.component.html',
+  styleUrl: './catalog.component.css'
 })
 export class CatalogComponent implements OnInit {
-  
-  // 1. Inyección del servicio de conexión con Spring Boot
   private productService = inject(ProductService);
+  private cartService = inject(CartService);
   
-  // 2. Arreglo vacío que la cuadrícula HTML llenará con las fotos y datos
   productos: Product[] = [];
 
-  // 3. Método del ciclo de vida de Angular que se ejecuta apenas carga la página
   ngOnInit() {
     this.cargarCatalogo();
   }
 
   cargarCatalogo() {
-    // Llama al método GET del servicio y se suscribe a la respuesta de Spring Boot
     this.productService.getProductos().subscribe({
       next: (data) => {
-        this.productos = data; // Guarda los datos de Supabase en la variable local
+        this.productos = data;
       },
       error: (err) => {
         console.error('Error al cargar el catálogo:', err);
       }
     });
+  }
+
+  // Método para agregar el producto al carrito y desplegar el panel
+  agregarAlCarrito(producto: Product) {
+    this.cartService.agregarProducto(producto);
+    this.cartService.abrirCarrito();
   }
 }
