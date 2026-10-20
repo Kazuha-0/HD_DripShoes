@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { RouterLink, ActivatedRoute } from '@angular/router'; // <-- Agregamos ActivatedRoute
+import { RouterLink, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -14,10 +14,10 @@ import { RouterLink, ActivatedRoute } from '@angular/router'; // <-- Agregamos A
 export class CatalogComponent implements OnInit {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
-  private route = inject(ActivatedRoute); // <-- Inyectamos la ruta activa
+  private route = inject(ActivatedRoute);
   
   productos: Product[] = [];
-  productosFiltrados: Product[] = []; // <-- Arreglo para almacenar el resultado del filtro
+  productosFiltrados: Product[] = [];
   categoriaSeleccionada: string | null = null;
 
   ngOnInit() {
@@ -41,12 +41,10 @@ export class CatalogComponent implements OnInit {
       this.categoriaSeleccionada = params['categoria'] || null;
 
       if (this.categoriaSeleccionada) {
-        // Filtra los productos comparando el campo 'categoria' (insensible a mayúsculas/minúsculas)
         this.productosFiltrados = this.productos.filter(p => 
           p.categoria && p.categoria.toLowerCase() === this.categoriaSeleccionada?.toLowerCase()
         );
       } else {
-        // Si entra directamente al catálogo sin filtro en la URL, muestra todos
         this.productosFiltrados = [...this.productos];
       }
     });

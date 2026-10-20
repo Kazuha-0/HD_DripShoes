@@ -1,0 +1,42 @@
+<div class="checkout-overlay" (click)="close.emit()"></div>
+
+<div class="checkout-card">
+  <div class="checkout-header">
+    <h2>DRIP SHOES</h2>
+    <p class="company-info">RUC: 20601234567 | Av. Principal 123</p>
+    
+    <div class="success-icon">✓</div>
+    
+    <h3>¡GRACIAS POR TU COMPRA!</h3>
+    <p class="receipt-number">Comprobante N° {{ numeroComprobante }}</p>
+  </div>
+
+  <div class="checkout-body">
+    <p class="receipt-date">Fecha: {{ fechaActual }}</p>
+
+    <div class="items-list">
+      @for (item of items; track item) {
+        <div class="receipt-item">
+          <span class="item-desc">
+            {{ item.cantidad }}x {{ obtenerNombre(item) }}
+          </span>
+          <span class="item-price">
+            S/ {{ obtenerSubtotal(item) | number:'1.2-2' }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <div class="receipt-divider"></div>
+
+    <div class="total-row">
+      <strong>TOTAL PAGADO</strong>
+      <strong class="total-amount">S/ {{ total | number:'1.2-2' }}</strong>
+    </div>
+  </div>
+
+  <div class="checkout-actions">
+    <button class="btn-print" (click)="imprimir()">Imprimir Comprobante</button>
+    <button class="btn-home" (click)="volverAlInicio()">Volver al Inicio</button>
+  </div>
+</div>

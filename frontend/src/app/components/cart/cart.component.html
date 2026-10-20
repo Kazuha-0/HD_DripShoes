@@ -1,0 +1,57 @@
+<div class="cart-overlay" (click)="cerrarCarrito()"></div>
+
+<div class="cart-drawer">
+  <div class="cart-header">
+    <div class="title-with-badge">
+      <h3>Tu Carrito</h3>
+      <span class="badge">{{ totalItems }}</span>
+    </div>
+    <button class="btn-close" (click)="cerrarCarrito()">&times;</button>
+  </div>
+
+  <div class="cart-body">
+    @if (items.length === 0) {
+      <div class="cart-empty">
+        <p>Tu carrito está vacío</p>
+        <button class="btn-continue" (click)="seguirComprando()">Ir a comprar</button>
+      </div>
+    } @else {
+      <div class="cart-items-list">
+        @for (item of items; track item) {
+          <div class="cart-item">
+            <img [src]="obtenerImagen(item)" [alt]="obtenerNombre(item)" class="item-img">
+            
+            <div class="item-details">
+              <div class="item-top">
+                <span class="item-brand">{{ obtenerMarca(item) }}</span>
+                <button class="btn-remove" (click)="eliminarProducto(item)">&times;</button>
+              </div>
+              <h4 class="item-title">{{ obtenerNombre(item) }}</h4>
+              <p class="item-price">S/ {{ obtenerPrecio(item) | number:'1.2-2' }}</p>
+
+              <div class="quantity-controls">
+                <button class="btn-qty" (click)="disminuirCantidad(item)">-</button>
+                <span class="qty-value">{{ item.cantidad }}</span>
+                <button class="btn-qty" (click)="aumentarCantidad(item)">+</button>
+                <span class="item-subtotal">S/ {{ obtenerSubtotal(item) | number:'1.2-2' }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  @if (items.length > 0) {
+    <div class="cart-footer">
+      <div class="summary-row total-row">
+        <span>Total</span>
+        <span class="total-price">S/ {{ totalPrecio | number:'1.2-2' }}</span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn-checkout" (click)="irAlCheckout()">FINALIZAR COMPRA</button>
+        <button class="btn-continue" (click)="seguirComprando()">SEGUIR COMPRANDO</button>
+      </div>
+    </div>
+  }
+</div>
