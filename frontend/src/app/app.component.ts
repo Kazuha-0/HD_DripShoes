@@ -33,7 +33,7 @@ export class AppComponent {
     this.cartService.cerrarCarrito();
   }
 
-  abrirCheckout() {
+ abrirCheckout() {
     this.cartService.cerrarCarrito();
     this.mostrarCheckout = true;
   }

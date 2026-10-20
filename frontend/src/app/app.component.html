@@ -14,11 +14,12 @@
 
 <!-- Comprobante / Boleta -->
 @if (mostrarCheckout) {
-  <app-checkout 
-    [items]="itemsCarrito"
-    [total]="totalCarrito"
-    (close)="cerrarCheckout()">
-  </app-checkout>
+<app-checkout 
+  *ngIf="mostrarCheckout" 
+  [items]="itemsCarrito" 
+  [total]="totalCarrito" 
+  (close)="cerrarCheckout()">
+</app-checkout>
 }
 
 <app-footer></app-footer>
