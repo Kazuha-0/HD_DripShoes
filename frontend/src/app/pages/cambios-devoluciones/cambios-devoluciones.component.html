@@ -1,0 +1,57 @@
+<div class="returns-wrapper">
+  <div class="returns-card">
+    
+    <!-- Header -->
+    <div class="returns-header">
+      <span class="returns-badge">POLÍTICAS DRIPSHOES</span>
+      <h2 class="returns-title">Cambios y <span class="highlight">Devoluciones</span></h2>
+      <p class="returns-subtitle">
+        Queremos que quedes 100% satisfecho con tu compra. Revisa nuestras condiciones y el proceso paso a paso.
+      </p>
+    </div>
+
+    <!-- Tarjetas de Políticas Clave -->
+    <div class="policies-grid">
+      <div class="policy-box">
+        <div class="policy-icon">⏱️</div>
+        <h4>Plazo de 7 Días</h4>
+        <p>Tienes hasta 7 días calendario desde que recibes el producto para solicitar cualquier cambio.</p>
+      </div>
+
+      <div class="policy-box">
+        <div class="policy-icon">👟</div>
+        <h4>Estado Impecable</h4>
+        <p>El calzado debe estar sin usar, con sus etiquetas originales intactas y en su caja original.</p>
+      </div>
+
+      <div class="policy-box">
+        <div class="policy-icon">💳</div>
+        <h4>Reembolsos</h4>
+        <p>Las devoluciones de dinero aplican únicamente por fallas de fábrica demostradas o falta de stock.</p>
+      </div>
+    </div>
+
+    <!-- Pasos del Proceso -->
+    <div class="steps-section">
+      <h3 class="section-subtitle">¿Cómo solicitar tu cambio?</h3>
+      
+      <div class="steps-list">
+        <div *ngFor="let paso of pasosCambio" class="step-item">
+          <div class="step-number">{{ paso.numero }}</div>
+          <div class="step-content">
+            <h5 class="step-title">{{ paso.titulo }}</h5>
+            <p class="step-desc">{{ paso.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nota sobre Gastos de Envío -->
+    <div class="shipping-note">
+      <p>
+        <strong>Nota importante:</strong> Si el cambio es por preferencia o talla, los gastos de transporte corren por cuenta del cliente. Si se trata de un defecto de fábrica, DripShoes asume el 100% de los fletes.
+      </p>
+    </div>
+
+  </div>
+</div>
