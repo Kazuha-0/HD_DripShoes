@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -14,8 +14,11 @@ import { RouterLink } from '@angular/router';
 export class CatalogComponent implements OnInit {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private route = inject(ActivatedRoute);
   
   productos: Product[] = [];
+  productosFiltrados: Product[] = [];
+  categoriaSeleccionada: string | null = null;
 
   ngOnInit() {
     this.cargarCatalogo();
@@ -25,6 +28,7 @@ export class CatalogComponent implements OnInit {
     this.productService.getProductos().subscribe({
       next: (data) => {
         this.productos = data;
+        this.escucharParametrosBusqueda();
       },
       error: (err) => {
         console.error('Error al cargar el catálogo:', err);
@@ -32,7 +36,20 @@ export class CatalogComponent implements OnInit {
     });
   }
 
-  // Método para agregar el producto al carrito y desplegar el panel
+  escucharParametrosBusqueda() {
+    this.route.queryParams.subscribe(params => {
+      this.categoriaSeleccionada = params['categoria'] || null;
+
+      if (this.categoriaSeleccionada) {
+        this.productosFiltrados = this.productos.filter(p => 
+          p.categoria && p.categoria.toLowerCase() === this.categoriaSeleccionada?.toLowerCase()
+        );
+      } else {
+        this.productosFiltrados = [...this.productos];
+      }
+    });
+  }
+
   agregarAlCarrito(producto: Product) {
     this.cartService.agregarProducto(producto);
     this.cartService.abrirCarrito();

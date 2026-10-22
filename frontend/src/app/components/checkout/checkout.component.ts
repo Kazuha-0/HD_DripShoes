@@ -37,8 +37,8 @@ export class CheckoutComponent {
     window.print();
   }
 
- volverAlInicio() {
-    this.cartService.limpiarCarrito(); // <-- Usamos limpiarCarrito()
+  volverAlInicio() {
+    this.cartService.limpiarCarrito(); // <-- Se limpia recién al cerrar/volver
     this.close.emit();
     this.router.navigate(['/']);
   }

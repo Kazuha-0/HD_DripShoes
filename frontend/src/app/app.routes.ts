@@ -4,12 +4,19 @@ import { NosotrosComponent } from './pages/nosotros/nosotros.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { CatalogComponent } from './pages/catalog/catalog.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { CambiosDevolucionesComponent } from './pages/cambios-devoluciones/cambios-devoluciones.component';
+import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
+import { LibroReclamacionesComponent } from './pages/libro-reclamaciones/libro-reclamaciones.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'nosotros', component: NosotrosComponent },
   { path: 'contacto', component: ContactoComponent },
-  { path: 'product/:id', component: ProductDetailComponent }, // <-- Asegúrate que esté aquí
+  { path: 'product/:id', component: ProductDetailComponent },
+  { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
+  { path: 'cambios-devoluciones', component: CambiosDevolucionesComponent },
+  { path: 'libro-reclamaciones', component: LibroReclamacionesComponent },
+  { path: 'faq', redirectTo: 'preguntas-frecuentes', pathMatch: 'full' },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

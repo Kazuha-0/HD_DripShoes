@@ -7,3 +7,60 @@ body {
   margin: 0;
   padding: 0;
 }
+/* ===================================================
+   IMPRESIÓN LIMPIA DE COMPROBANTE EN 1 HOJA EXACTA
+   =================================================== */
+@media print {
+  /* 1. Ocultar los bloques grandes de fondo */
+  app-navbar,
+  app-footer,
+  main,
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  /* 2. Ocultar botones dentro de la vista previa */
+  button {
+    display: none !important;
+  }
+
+  /* 3. Ocultar todos los hijos del body que NO contengan la boleta */
+  body > *:not(:has(div[class*="modal"]), :has(div[class*="comprobante"]), :has(div[class*="ticket"]), :has(div[class*="boleta"]), :has(div[class*="receipt"])) {
+    display: none !important;
+  }
+
+  /* 4. Estilos de impresión para la boleta */
+  div[class*="modal"],
+  div[class*="comprobante"],
+  div[class*="ticket"],
+  div[class*="boleta"],
+  div[class*="receipt"] {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+    width: 100% !important;
+    max-width: 500px !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    background: #ffffff !important;
+  }
+
+  /* 5. Asegurar visibilidad interna del ticket */
+  div[class*="modal"] *,
+  div[class*="comprobante"] *,
+  div[class*="ticket"] *,
+  div[class*="boleta"] *,
+  div[class*="receipt"] * {
+    visibility: visible !important;
+  }
+
+  /* 6. Formato limpio A4 a 1 sola hoja */
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+}

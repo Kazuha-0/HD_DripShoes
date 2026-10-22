@@ -1,0 +1,178 @@
+/* Contenedor principal que centra la tarjeta */
+.claim-wrapper {
+  background-color: #ffffff;
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+/* Tarjeta central contenedor */
+.claim-card {
+  width: 100%;
+  max-width: 850px;
+  background-color: #121212;
+  border: 1px solid #222222;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Header */
+.claim-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.claim-badge {
+  display: inline-block;
+  background-color: rgba(233, 30, 99, 0.15);
+  color: #e91e63;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.claim-title {
+  color: #ffffff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+}
+
+.claim-title .highlight {
+  color: #e91e63;
+}
+
+.claim-subtitle {
+  color: #888888;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Estructura del Formulario */
+.claim-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-section {
+  background-color: #161616;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.section-title {
+  color: #e91e63;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 18px 0;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 10px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  color: #cccccc;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Inputs, Selects y Textareas estilo DripShoes */
+.form-control-custom {
+  background-color: #1c1c1c;
+  border: 1px solid #303030;
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.form-control-custom:focus {
+  border-color: #e91e63;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.radio-label {
+  color: #bbbbbb;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botón enviar */
+.btn-submit {
+  background-color: #e91e63;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+  background-color: #d81b60;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+.success-message {
+  color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.15);
+  border: 1px solid #2e7d32;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0;
+}
