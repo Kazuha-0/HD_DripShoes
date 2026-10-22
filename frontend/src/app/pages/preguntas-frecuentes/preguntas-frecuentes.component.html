@@ -1,0 +1,76 @@
+<div class="faq-wrapper">
+  <div class="faq-card">
+    
+    <!-- Header de la sección -->
+    <div class="faq-header">
+      <span class="faq-badge">SOPORTE DRIPSHOES</span>
+      <h2 class="faq-title">Preguntas <span class="highlight">Frecuentes</span></h2>
+      <p class="faq-subtitle">
+        Encuentra respuestas rápidas sobre tus compras, envíos y garantía de autenticidad.
+      </p>
+    </div>
+
+    <!-- Lista de preguntas -->
+    <div class="faq-list">
+      <div 
+        *ngFor="let item of faqs; let i = index" 
+        class="faq-item" 
+        [class.active]="item.abierto"
+      >
+        <button type="button" class="faq-question" (click)="toggleFaq(i)">
+          <span class="question-text">{{ item.pregunta }}</span>
+          <span class="faq-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </span>
+        </button>
+
+        <div class="faq-answer" *ngIf="item.abierto">
+          <p>{{ item.respuesta }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de Consulta Directa -->
+    <div class="faq-contact-section">
+      <div class="contact-header text-center">
+        <h3 class="contact-title">¿Tienes alguna otra consulta?</h3>
+        <p class="contact-subtitle">Déjanos tu correo y tu mensaje, te responderemos a la brevedad.</p>
+      </div>
+
+      <form (submit)="enviarConsulta($event)" class="contact-form">
+        <div class="form-group">
+          <label for="userEmail" class="form-label">Correo Electrónico</label>
+          <input 
+            type="email" 
+            id="userEmail" 
+            class="form-control-custom" 
+            placeholder="ejemplo@correo.com" 
+            required 
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="userMessage" class="form-label">Tu Mensaje o Duda</label>
+          <textarea 
+            id="userMessage" 
+            rows="4" 
+            class="form-control-custom" 
+            placeholder="Escribe aquí tu consulta detallada..." 
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Enviar Mensaje
+        </button>
+
+        <p *ngIf="mensajeEnviado" class="success-message">
+          ✓ ¡Gracias! Tu mensaje ha sido registrado. Te responderemos pronto.
+        </p>
+      </form>
+    </div>
+
+  </div>
+</div>
