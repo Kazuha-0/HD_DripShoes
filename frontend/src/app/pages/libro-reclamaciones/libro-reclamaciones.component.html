@@ -1,0 +1,104 @@
+<div class="claim-wrapper">
+  <div class="claim-card">
+
+    <!-- Encabezado -->
+    <div class="claim-header">
+      <span class="claim-badge">HOJA DE RECLAMACIÓN VIRTUAL</span>
+      <h2 class="claim-title">Libro de <span class="highlight">Reclamaciones</span></h2>
+      <p class="claim-subtitle">
+        DripShoes S.A.C. | RUC: 20601234567 | Dirección: Av. Principal 123, Lima
+      </p>
+    </div>
+
+    <!-- Formulario Estático -->
+    <form (submit)="enviarReclamo($event)" class="claim-form">
+      
+      <!-- Sección 1: Datos del Consumidor -->
+      <div class="form-section">
+        <h4 class="section-title">1. Identificación del Consumidor</h4>
+        
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label class="form-label">Nombres y Apellidos</label>
+            <input type="text" class="form-control-custom" placeholder="Ej. Juan Pérez" required />
+          </div>
+          <div class="form-group flex-1">
+            <label class="form-label">N° de DNI / CE</label>
+            <input type="text" class="form-control-custom" placeholder="76543210" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control-custom" placeholder="ejemplo@correo.com" required />
+          </div>
+          <div class="form-group flex-1">
+            <label class="form-label">Teléfono / WhatsApp</label>
+            <input type="tel" class="form-control-custom" placeholder="987654321" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección 2: Bien Contratado -->
+      <div class="form-section">
+        <h4 class="section-title">2. Identificación del Bien Contratado</h4>
+        
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label class="form-label">Tipo de Bien</label>
+            <select class="form-control-custom" required>
+              <option value="producto">Producto (Calzado / Accesorio)</option>
+              <option value="servicio">Servicio (Envío / Atencion)</option>
+            </select>
+          </div>
+          <div class="form-group flex-1">
+            <label class="form-label">N° de Pedido / Boleta</label>
+            <input type="text" class="form-control-custom" placeholder="ORD-2026-001" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección 3: Detalle del Reclamo/Queja -->
+      <div class="form-section">
+        <h4 class="section-title">3. Detalle de la Reclamación</h4>
+        
+        <div class="form-group">
+          <label class="form-label">Tipo de Solicitud</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="tipoSolicitud" value="reclamo" checked /> 
+              <strong>Reclamo:</strong> Disconformidad relacionada a los productos o servicios adquiridos.
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="tipoSolicitud" value="queja" /> 
+              <strong>Queja:</strong> Disconformidad no relacionada a los productos (ej. mala atención).
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Detalle del Reclamo o Queja</label>
+          <textarea class="form-control-custom" rows="4" placeholder="Explica detalladamente lo sucedido con tu compra..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pedido / Solicitud del Consumidor</label>
+          <textarea class="form-control-custom" rows="3" placeholder="¿Qué solución esperas recibir? (Ej. Cambio de talla, reembolso, etc.)" required></textarea>
+        </div>
+      </div>
+
+      <!-- Botón de Envío -->
+      <button type="submit" class="btn-submit">
+        Registrar Hoja de Reclamación
+      </button>
+
+      <!-- Alerta Estática de Éxito -->
+      <p *ngIf="reclamoEnviado" class="success-message">
+        ✓ Tu Hoja de Reclamación ha sido registrada. Se ha generado un ticket estático de atención.
+      </p>
+
+    </form>
+
+  </div>
+</div>
