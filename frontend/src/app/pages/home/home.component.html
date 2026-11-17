@@ -5,7 +5,6 @@
     @for (slide of slides; track $index) {
     <img [src]="slide" [class.active]="currentSlide === $index" class="carousel-slide" alt="Banner Drip Shoes">
     }
-    <!-- Texto superpuesto transparente en el carrusel -->
     <div class="carousel-overlay">
       <h1
         style="font-family: 'Didot', 'Playfair Display', 'Bodoni MT', serif; font-size: 3.5rem; margin-bottom: 15px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
@@ -17,18 +16,14 @@
 
   <!-- SECCIÓN 2: CATÁLOGO Y DESCUBRE -->
   <div id="catalogo" style="background-color: #fff; padding-top: 80px; scroll-margin-top: 80px;">
-
-    <!-- Texto "DESCUBRE" con Tipografía Elegante de Alta Gama -->
     <div style="text-align: center; padding: 0 20px 70px 20px;">
       <h2
         style="font-family: 'Didot', 'Playfair Display', 'Bodoni MT', 'Times New Roman', serif; font-size: 2.8rem; letter-spacing: 6px; margin-bottom: 25px; text-transform: uppercase; font-weight: normal; color: #111;">
         Descubre
       </h2>
 
-      <!-- Línea decorativa sutil -->
       <div style="width: 50px; height: 2px; background-color: #e50046; margin: 0 auto 35px auto;"></div>
 
-      <!-- Descripción con mejor interlineado, fuente ligera y limpia -->
       <p
         style="font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; color: #444; max-width: 800px; margin: 0 auto; line-height: 2; font-size: 1.15rem; font-weight: 300;">
         <span
@@ -41,34 +36,29 @@
       </p>
     </div>
 
-<!-- Las 3 Categorías Clickeables -->
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); height: 450px;">
-  
-  <!-- Caballeros -->
-  <a [routerLink]="['/catalog']" [queryParams]="{ categoria: 'caballeros' }"
-    style="text-decoration: none; background-image: url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
-    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: background 0.3s;"></div>
-    <h2 style="font-family: 'Montserrat', 'Helvetica Neue', sans-serif; color: white; font-size: 1.3rem; z-index: 1; text-transform: uppercase; font-weight: 400; letter-spacing: 3px;">
-      Caballeros</h2>
-  </a>
+    <!-- Las 3 Categorías Clickeables -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); height: 450px;">
+      <a [routerLink]="['/catalog']" [queryParams]="{ categoria: 'caballeros' }"
+        style="text-decoration: none; background-image: url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: background 0.3s;"></div>
+        <h2 style="font-family: 'Montserrat', 'Helvetica Neue', sans-serif; color: white; font-size: 1.3rem; z-index: 1; text-transform: uppercase; font-weight: 400; letter-spacing: 3px;">
+          Caballeros</h2>
+      </a>
 
-  <!-- Damas -->
-  <a [routerLink]="['/catalog']" [queryParams]="{ categoria: 'damas' }"
-    style="text-decoration: none; background-image: url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
-    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: background 0.3s;"></div>
-    <h2 style="font-family: 'Montserrat', 'Helvetica Neue', sans-serif; color: white; font-size: 1.3rem; z-index: 1; text-transform: uppercase; font-weight: 400; letter-spacing: 3px;">
-      Damas</h2>
-  </a>
+      <a [routerLink]="['/catalog']" [queryParams]="{ categoria: 'damas' }"
+        style="text-decoration: none; background-image: url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: background 0.3s;"></div>
+        <h2 style="font-family: 'Montserrat', 'Helvetica Neue', sans-serif; color: white; font-size: 1.3rem; z-index: 1; text-transform: uppercase; font-weight: 400; letter-spacing: 3px;">
+          Damas</h2>
+      </a>
 
-  <!-- Infantil -->
-  <a [routerLink]="['/catalog']" [queryParams]="{ categoria: 'infantil' }"
-    style="text-decoration: none; background-image: url('https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
-    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: background 0.3s;"></div>
-    <h2 style="font-family: 'Montserrat', 'Helvetica Neue', sans-serif; color: white; font-size: 1.3rem; z-index: 1; text-transform: uppercase; font-weight: 400; letter-spacing: 3px;">
-      Infantil</h2>
-  </a>
-
-</div>
+      <a [routerLink]="['/catalog']" [queryParams]="{ categoria: 'infantil' }"
+        style="text-decoration: none; background-image: url('https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: background 0.3s;"></div>
+        <h2 style="font-family: 'Montserrat', 'Helvetica Neue', sans-serif; color: white; font-size: 1.3rem; z-index: 1; text-transform: uppercase; font-weight: 400; letter-spacing: 3px;">
+          Infantil</h2>
+      </a>
+    </div>
   </div>
 
   <!-- SECCIÓN 3: POPULAR (Cuadrícula de la Base de Datos - 8 MAX) -->
@@ -78,30 +68,36 @@
       Recomendados para ti</h2>
 
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
-
-      <!-- Mostramos solo los primeros 8 productos -->
       @for (producto of productos | slice:0:8; track producto.id) {
       <div class="tarjeta-producto">
-
-        <div class="producto-imagen">
+        <a [routerLink]="['/product', producto.id]" class="producto-imagen" style="display: block; cursor: pointer;">
           <img [src]="producto.imagen || 'assets/placeholder.jpg'" alt="{{ producto.nombre }}">
-        </div>
+        </a>
 
         <p class="producto-marca">{{ producto.marca }}</p>
-        <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+        <h3 class="producto-nombre">
+          <a [routerLink]="['/product', producto.id]" style="text-decoration: none; color: inherit;">
+            {{ producto.nombre }}
+          </a>
+        </h3>
         <p class="producto-precio">S/ {{ producto.precio | number:'1.2-2' }}</p>
 
-        <button (click)="abrirVistaRapida(producto)"
-          style="width: 100%; padding: 12px; background-color: #6b092b; color: #ffffff; border: none; border-radius: 25px; font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; transition: background-color 0.3s ease, transform 0.2s ease;">
-          Ver Producto
-        </button>
+        <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+          <a [routerLink]="['/product', producto.id]"
+            style="display: block; text-align: center; text-decoration: none; width: 100%; padding: 12px; background-color: #6b092b; color: #ffffff; border: none; border-radius: 25px; font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; box-sizing: border-box;">
+            Ver Producto
+          </a>
+          <button (click)="abrirVistaRapida(producto)"
+            style="width: 100%; padding: 8px; background-color: transparent; color: #6b092b; border: 1px solid #6b092b; border-radius: 25px; font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; cursor: pointer; text-transform: uppercase;">
+            Vista Rápida
+          </button>
+        </div>
       </div>
       }
-
     </div>
   </div>
 
-  <!-- MODAL VISTA RÁPIDA (fuera de la cuadrícula) -->
+  <!-- MODAL VISTA RÁPIDA -->
   @if (productoSeleccionado) {
   <div (click)="cerrarModal()"
     style="position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px;">
@@ -135,10 +131,17 @@
         <p style="font-size: 24px; font-weight: 700; color: #6b092b; margin: 0 0 22px 0;">
           S/ {{ productoSeleccionado.precio | number:'1.2-2' }}
         </p>
-        <button (click)="comprar(productoSeleccionado); cerrarModal()"
-          style="width: 100%; padding: 12px; background-color: #6b092b; color: #fff; border: none; border-radius: 25px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">
-          Añadir al carrito
-        </button>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button (click)="comprar(productoSeleccionado); cerrarModal()"
+            style="width: 100%; padding: 12px; background-color: #6b092b; color: #fff; border: none; border-radius: 25px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase;">
+            Añadir al carrito
+          </button>
+          <a [routerLink]="['/product', productoSeleccionado.id]" (click)="cerrarModal()"
+            style="display: block; text-align: center; text-decoration: none; width: 100%; padding: 11px; background-color: #111; color: #fff; border-radius: 25px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; box-sizing: border-box;">
+            Elegir talla y ver detalles
+          </a>
+        </div>
       </div>
     </div>
   </div>
