@@ -1,35 +1,67 @@
 <div class="catalog-container">
   <div class="catalog-header">
-    <h2>Catálogo Completo</h2>
-    <!-- Muestra la cantidad real de productos filtrados -->
-    <span class="product-count">{{ productosFiltrados.length || 0 }} productos encontrados</span>
+    <div class="header-title-group">
+      <h2>{{ categoriaSeleccionada ? 'Catálogo: ' + categoriaSeleccionada : 'Catálogo Completo' }}</h2>
+      <span class="product-count">{{ productosFiltrados.length || 0 }} productos encontrados</span>
+    </div>
+
+    <!-- Barra de Filtros y Ordenamiento -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label for="marcaSelect">Marca:</label>
+        <select id="marcaSelect" [(ngModel)]="marcaSeleccionada" (change)="aplicarFiltrosYOrden()">
+          <option value="">Todas las marcas</option>
+          @for (marca of marcasDisponibles; track marca) {
+            <option [value]="marca">{{ marca }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="ordenSelect">Ordenar por:</label>
+        <select id="ordenSelect" [(ngModel)]="ordenPrecio" (change)="aplicarFiltrosYOrden()">
+          <option value="default">Destacados</option>
+          <option value="asc">Precio: Menor a Mayor</option>
+          <option value="desc">Precio: Mayor a Menor</option>
+        </select>
+      </div>
+
+      @if (hayFiltrosActivos) {
+        <button class="btn-clear-filters" (click)="limpiarFiltros()" title="Restablecer filtros">
+          ✕ Limpiar
+        </button>
+      }
+    </div>
   </div>
   
-  <div class="products-grid">
-    @for (producto of productosFiltrados; track producto.id) {
-      <div class="product-card">
-        <!-- Badge o Etiqueta superior opcional -->
-        <div class="card-badge">Nuevo</div>
-        
-        <!-- Imagen con contenedor para efecto zoom -->
-        <div class="image-container">
-          <img [src]="producto.imagen || 'assets/placeholder.jpg'" [alt]="producto.nombre">
-        </div>
-        
-        <!-- Contenido de la tarjeta -->
-        <div class="card-body">
-          <span class="brand-tag">{{ producto.marca }}</span>
-          <h3 class="product-title">{{ producto.nombre }}</h3>
-          <p class="category-tag">{{ producto.categoria }}</p>
-          <p class="product-price">S/ {{ producto.precio | number:'1.2-2' }}</p>
+  @if (productosFiltrados.length > 0) {
+    <div class="products-grid">
+      @for (producto of productosFiltrados; track producto.id) {
+        <div class="product-card">
+          <div class="card-badge">Nuevo</div>
           
-          <!-- Evento click vinculado al método del componente -->
-          <button class="btn-add-cart" (click)="agregarAlCarrito(producto)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            AGREGAR AL CARRITO
-          </button>
+          <div class="image-container">
+            <img [src]="producto.imagen || 'assets/placeholder.jpg'" [alt]="producto.nombre">
+          </div>
+          
+          <div class="card-body">
+            <span class="brand-tag">{{ producto.marca }}</span>
+            <h3 class="product-title">{{ producto.nombre }}</h3>
+            <p class="category-tag">{{ producto.categoria }}</p>
+            <p class="product-price">S/ {{ producto.precio | number:'1.2-2' }}</p>
+            
+            <button class="btn-add-cart" (click)="agregarAlCarrito(producto)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              AGREGAR AL CARRITO
+            </button>
+          </div>
         </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <p>No se encontraron zapatillas con los filtros seleccionados.</p>
+      <button class="btn-reset-empty" (click)="limpiarFiltros()">Ver todo el catálogo</button>
+    </div>
+  }
 </div>
