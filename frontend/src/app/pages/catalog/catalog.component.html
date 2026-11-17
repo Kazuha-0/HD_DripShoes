@@ -40,13 +40,15 @@
         <div class="product-card">
           <div class="card-badge">Nuevo</div>
           
-          <div class="image-container">
+          <a [routerLink]="['/product', producto.id]" class="image-container">
             <img [src]="producto.imagen || 'assets/placeholder.jpg'" [alt]="producto.nombre">
-          </div>
+          </a>
           
           <div class="card-body">
             <span class="brand-tag">{{ producto.marca }}</span>
-            <h3 class="product-title">{{ producto.nombre }}</h3>
+            <h3 class="product-title">
+              <a [routerLink]="['/product', producto.id]" class="title-link">{{ producto.nombre }}</a>
+            </h3>
             <p class="category-tag">{{ producto.categoria }}</p>
             <p class="product-price">S/ {{ producto.precio | number:'1.2-2' }}</p>
             
