@@ -111,12 +111,12 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
 
-    const productoConTalla: Product = {
-      ...this.producto,
-      nombre: `${this.producto.nombre} (Talla ${this.tallaSeleccionada})`
-    };
+    this.cartService.agregarProducto(
+      this.producto,
+      1,
+      this.tallaSeleccionada
+    );
 
-    this.cartService.agregarProducto(productoConTalla);
     this.cartService.abrirCarrito();
   }
 }
