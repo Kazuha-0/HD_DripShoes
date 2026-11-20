@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { FavoritesService } from '../../services/favorites.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -15,6 +16,7 @@ export class ProductDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private favoritesService = inject(FavoritesService);
 
   producto?: Product;
   productosRecomendados: Product[] = [];
@@ -75,6 +77,24 @@ export class ProductDetailComponent implements OnInit {
     this.errorTalla = false;
   }
 
+  toggleFavorito() {
+    if (!this.producto || this.producto.id === undefined) return;
+
+    if (this.favoritesService.esFavorito(this.producto.id)) {
+      this.favoritesService.eliminarFavorito(this.producto.id);
+    } else {
+      this.favoritesService.agregarFavorito(this.producto);
+    }
+  }
+
+  esFavorito(): boolean {
+    if (!this.producto || this.producto.id === undefined) {
+      return false;
+    }
+
+    return this.favoritesService.esFavorito(this.producto.id);
+  }
+
   get sinStock(): boolean {
     return this.producto?.stock !== undefined && this.producto.stock <= 0;
   }
@@ -98,9 +118,5 @@ export class ProductDetailComponent implements OnInit {
 
     this.cartService.agregarProducto(productoConTalla);
     this.cartService.abrirCarrito();
-  }
-
-  toggleFavorito() {
-    this.enFavoritos = !this.enFavoritos;
   }
 }
