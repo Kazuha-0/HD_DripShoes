@@ -34,22 +34,30 @@ export class CartComponent {
     this.close.emit();
   }
 
-seguirComprando() {
+  seguirComprando() {
     this.cerrarCarrito();
   }
 
   aumentarCantidad(item: any) {
-    this.cartService.agregarProducto(item.producto || item);
+    this.cartService.agregarProducto(
+      item.producto,
+      1,
+      item.talla || ''
+    );
   }
 
   disminuirCantidad(item: any) {
-    const id = item.producto ? item.producto.id : item.id;
-    this.cartService.disminuirProducto(id);
+    this.cartService.disminuirProducto(
+      item.producto.id,
+      item.talla || ''
+    );
   }
 
   eliminarProducto(item: any) {
-    const id = item.producto ? item.producto.id : item.id;
-    this.cartService.quitarProducto(id);
+    this.cartService.quitarProducto(
+      item.producto.id,
+      item.talla || ''
+    );
   }
 
   irAlCheckout() {
