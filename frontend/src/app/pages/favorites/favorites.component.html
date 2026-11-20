@@ -1,0 +1,55 @@
+<div class="favorites-container">
+  <div class="favorites-header">
+    <span class="favorites-subtitle">TU COLECCIÓN PERSONAL</span>
+    <h1>Mis favoritos</h1>
+    <p>Los modelos que te gustaron, todos en un solo lugar.</p>
+  </div>
+
+  @if (favoritos.length > 0) {
+    <div class="favorites-count">
+      {{ favoritos.length }} productos guardados
+    </div>
+
+    <div class="favorites-grid">
+      @for (producto of favoritos; track producto.id) {
+        <div class="favorite-card">
+
+          <a [routerLink]="['/product', producto.id]" class="favorite-image">
+            <img
+              [src]="producto.imagen || 'assets/placeholder.jpg'"
+              [alt]="producto.nombre">
+          </a>
+
+          <div class="favorite-info">
+            <span class="favorite-brand">{{ producto.marca }}</span>
+            <h3>{{ producto.nombre }}</h3>
+
+            <p class="favorite-price">
+              S/ {{ producto.precio | number:'1.2-2' }}
+            </p>
+
+            <div class="favorite-actions">
+              <a [routerLink]="['/product', producto.id]">
+                VER PRODUCTO
+              </a>
+
+              <button
+                type="button"
+                (click)="eliminarFavorito(producto.id!)">
+                QUITAR
+              </button>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="favorites-empty">
+      <div class="empty-heart">♡</div>
+      <h2>Aún no tienes favoritos</h2>
+      <p>Explora nuestro catálogo y guarda los modelos que más te gusten.</p>
+      <a routerLink="/catalog">EXPLORAR CATÁLOGO</a>
+    </div>
+  }
+</div>

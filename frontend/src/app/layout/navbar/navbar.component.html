@@ -45,9 +45,10 @@
       <li><a routerLink="/" fragment="popular" (click)="cerrarMenu()">RECOMENDADOS</a></li>
       <li><a routerLink="/nosotros" (click)="cerrarMenu()">NOSOTROS</a></li>
       <li><a routerLink="/contacto" (click)="cerrarMenu()">CONTÁCTANOS</a></li>
+      <li><a routerLink="/favoritos" (click)="cerrarMenu()">FAVORITOS</a></li>
     </ul>
 
-   <!-- Ícono del Carrito con Contador -->
+    <!-- Ícono del Carrito con Contador -->
     <button class="cart-btn" aria-label="Carrito de compras" (click)="abrirCarrito()">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -56,11 +57,11 @@
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
       </svg>
       @if (totalItemsCart > 0) {
-        <span class="cart-badge">{{ totalItemsCart }}</span>
+      <span class="cart-badge">{{ totalItemsCart }}</span>
       }
     </button>
 
-   
+
 
     <!-- Botón de Usuario -->
     @if (estaLogueado) {
