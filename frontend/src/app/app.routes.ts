@@ -7,6 +7,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { CambiosDevolucionesComponent } from './pages/cambios-devoluciones/cambios-devoluciones.component';
 import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
 import { LibroReclamacionesComponent } from './pages/libro-reclamaciones/libro-reclamaciones.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
   { path: 'cambios-devoluciones', component: CambiosDevolucionesComponent },
   { path: 'libro-reclamaciones', component: LibroReclamacionesComponent },
+  { path: 'favoritos', component: FavoritesComponent },
   { path: 'faq', redirectTo: 'preguntas-frecuentes', pathMatch: 'full' },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

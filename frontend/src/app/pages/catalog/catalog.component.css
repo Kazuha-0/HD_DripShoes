@@ -5,14 +5,22 @@
   padding: 2.5rem 1.5rem;
 }
 
-/* Encabezado */
+/* Encabezado y Barra de Filtros */
 .catalog-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.25rem;
   margin-bottom: 2rem;
   border-bottom: 2px solid #f1f1f1;
-  padding-bottom: 1rem;
+  padding-bottom: 1.25rem;
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .catalog-header h2 {
@@ -25,9 +33,67 @@
 }
 
 .product-count {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #666;
   font-weight: 500;
+}
+
+/* Controles de Filtro */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.filter-group select {
+  padding: 0.55rem 0.9rem;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #111;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.filter-group select:hover,
+.filter-group select:focus {
+  border-color: #111;
+}
+
+.btn-clear-filters {
+  background-color: #f4f4f4;
+  color: #e63946;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-clear-filters:hover {
+  background-color: #e63946;
+  color: #fff;
+  border-color: #e63946;
 }
 
 /* Grilla de Productos */
@@ -54,7 +120,7 @@
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Badge Superior (Nuevo, Oferta, etc.) */
+/* Badge Superior */
 .card-badge {
   position: absolute;
   top: 12px;
@@ -71,27 +137,28 @@
 }
 
 /* Contenedor de Imagen con Efecto Zoom */
-/* Contenedor completo de la imagen */
 .image-container {
   position: relative;
   width: 100%;
   height: 220px;
-  background-color: #f8f9fa; /* Fondo uniforme para la caja */
+  background-color: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
   box-sizing: border-box;
+  overflow: hidden;
+  text-decoration: none;
 }
 
-/* Forzar la imagen a centrarse en ambos ejes */
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: contain;       /* Mantiene la proporción sin deformar */
-  object-position: center;  /* Fuerza el centrado absoluto */
+  object-fit: contain;
+  object-position: center;
   margin: 0 auto;
   display: block;
+  transition: transform 0.3s ease;
 }
 
 .product-card:hover .image-container img {
@@ -123,6 +190,16 @@
   line-height: 1.3;
 }
 
+.title-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.title-link:hover {
+  color: #e63946;
+}
+
 .category-tag {
   font-size: 0.85rem;
   color: #666;
@@ -132,7 +209,7 @@
 .product-price {
   font-size: 1.35rem;
   font-weight: 800;
-  color: #e63946;            /* Rojo institucional de DripShoes */
+  color: #e63946;
   margin: auto 0 1.25rem 0;
 }
 
@@ -165,4 +242,29 @@
 
 .cart-icon {
   stroke: #ffffff;
+}
+
+/* Estado Vacío */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  color: #555;
+}
+
+.btn-reset-empty {
+  margin-top: 1rem;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-reset-empty:hover {
+  background-color: #e63946;
 }

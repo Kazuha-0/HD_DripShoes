@@ -1,9 +1,11 @@
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface CartItem {
   producto: any;
   cantidad: number;
+  talla: string;
 }
 
 @Injectable({
@@ -15,78 +17,73 @@ export class CartService {
   private itemsSubject = new BehaviorSubject<CartItem[]>([]);
   items$ = this.itemsSubject.asObservable();
 
-  // Controla si el panel lateral del carrito (en el navbar) está abierto
   carritoAbierto: boolean = false;
 
   constructor() {
     this.cargar();
   }
 
-  // Lista actual de ítems
   get items(): CartItem[] {
     return this.itemsSubject.getValue();
   }
 
-  // Agregar producto al carrito
-  agregarProducto(producto: any, cantidad: number = 1): void {
-    const itemsActuales = this.itemsSubject.getValue();
-    const index = itemsActuales.findIndex(
-      (item) => item.producto.id === producto.id,
-    );
+  agregarProducto(producto: any, cantidad: number = 1, talla: string = ''): void {
+  const itemsActuales = this.itemsSubject.getValue();
 
-    if (index > -1) {
-      itemsActuales[index].cantidad += cantidad;
-    } else {
-      itemsActuales.push({ producto, cantidad });
-    }
+  const index = itemsActuales.findIndex(
+    (item) => item.producto.id === producto.id && item.talla === talla
+  );
 
-    this.itemsSubject.next([...itemsActuales]);
-    this.guardar();
+  if (index > -1) {
+    itemsActuales[index].cantidad += cantidad;
+  } else {
+    itemsActuales.push({ producto, cantidad, talla });
   }
 
-  // Restar una unidad (si llega a 0, se quita del carrito)
-  disminuirProducto(id: any): void {
-    const actualizados = this.items
-      .map((item) =>
-        item.producto.id === id
-          ? { ...item, cantidad: item.cantidad - 1 }
-          : item,
-      )
-      .filter((item) => item.cantidad > 0);
+  this.itemsSubject.next([...itemsActuales]);
+  this.guardar();
+}
 
-    this.itemsSubject.next(actualizados);
-    this.guardar();
-  }
+  disminuirProducto(id: any, talla: string = ''): void {
+  const actualizados = this.items
+    .map((item) =>
+      item.producto.id === id && item.talla === talla
+        ? { ...item, cantidad: item.cantidad - 1 }
+        : item
+    )
+    .filter((item) => item.cantidad > 0);
 
-  // Quitar un producto completo
-  quitarProducto(id: any): void {
-    this.itemsSubject.next(
-      this.items.filter((item) => item.producto.id !== id),
-    );
-    this.guardar();
-  }
+  this.itemsSubject.next(actualizados);
+  this.guardar();
+}
 
-  // Obtener la cantidad total de ítems
+  quitarProducto(id: any, talla: string = ''): void {
+  this.itemsSubject.next(
+    this.items.filter(
+      (item) => !(item.producto.id === id && item.talla === talla)
+    )
+  );
+
+  this.guardar();
+}
+
   get TotalItems(): number {
     return this.itemsSubject
       .getValue()
       .reduce((total, item) => total + item.cantidad, 0);
   }
 
-  // Obtener el precio total
   get TotalPrecio(): number {
     return this.itemsSubject
       .getValue()
       .reduce((total, item) => total + item.producto.precio * item.cantidad, 0);
   }
 
-  // Limpiar el carrito
   limpiarCarrito(): void {
     this.itemsSubject.next([]);
     this.guardar();
   }
 
-  // Panel lateral
   abrirCarrito(): void {
     this.carritoAbierto = true;
   }
@@ -99,7 +96,6 @@ export class CartService {
     this.carritoAbierto = !this.carritoAbierto;
   }
 
-  // Persistencia
   private guardar(): void {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.items));
@@ -107,11 +103,20 @@ export class CartService {
   }
 
   private cargar(): void {
-    try {
-      const data = localStorage.getItem(this.STORAGE_KEY);
-      if (data) this.itemsSubject.next(JSON.parse(data));
-    } catch {
-      this.itemsSubject.next([]);
+  try {
+    const data = localStorage.getItem(this.STORAGE_KEY);
+
+    if (data) {
+      const items = JSON.parse(data);
+      this.itemsSubject.next(
+        items.map((item: any) => ({
+          ...item,
+          talla: item.talla || ''
+        }))
+      );
     }
+  } catch {
+    this.itemsSubject.next([]);
   }
+}
 }

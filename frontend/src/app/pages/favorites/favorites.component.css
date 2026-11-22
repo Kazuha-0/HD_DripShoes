@@ -1,0 +1,150 @@
+.favorites-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 55px 30px 80px;
+  min-height: 65vh;
+}
+
+.favorites-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.favorites-subtitle {
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  color: #888;
+}
+
+.favorites-header h1 {
+  font-size: 38px;
+  margin: 12px 0;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.favorites-header p {
+  color: #777;
+  font-size: 14px;
+}
+
+.favorites-count {
+  margin-bottom: 20px;
+  color: #777;
+  font-size: 13px;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.favorite-card {
+  border: 1px solid #e8e8e8;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-4px);
+}
+
+.favorite-image {
+  display: block;
+  height: 230px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+
+.favorite-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.favorite-info {
+  padding: 18px;
+}
+
+.favorite-brand {
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.favorite-info h3 {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.favorite-price {
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.favorite-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.favorite-actions a {
+  color: #111;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.favorite-actions button {
+  border: none;
+  background: transparent;
+  color: #b3261e;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.favorites-empty {
+  text-align: center;
+  padding: 65px 20px;
+}
+
+.empty-heart {
+  font-size: 65px;
+  color: #aaa;
+}
+
+.favorites-empty h2 {
+  font-size: 23px;
+  margin: 15px 0 10px;
+}
+
+.favorites-empty p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.favorites-empty a {
+  display: inline-block;
+  padding: 14px 25px;
+  background: #111;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .favorites-container {
+    padding: 35px 16px 55px;
+  }
+
+  .favorites-header h1 {
+    font-size: 29px;
+  }
+}
